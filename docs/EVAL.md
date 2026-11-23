@@ -178,7 +178,10 @@ mechanics check, 2026-11-23:
 | 6: pass 1 alone (same run) | all | 76.3% | 20/21 | 45 | 17 | 0 | - |
 
 Cost of pass 2 (run 6): it ran on 64 of 266 alerts, 2024 ms each, which adds 487 ms
-per alert on average (2026 ms total versus about 1540 ms for one pass).
+per alert on average.
+
+Correction (confirm run): the ms column above is pass 1 only. Pass 1 + pass 2 together
+average about 2,525 ms per alert, so the real cost of two passes is about 2.5 s per alert.
 
 What the numbers say:
 
@@ -195,3 +198,17 @@ What the numbers say:
   two generic signs (script path argument in a temp or hidden folder for a service
   account; secret sweep by a service account), then measure on fresh alerts, since
   the odd half has now been looked at.
+
+## Confirm run on the public code
+
+Fresh clone of the public repo after the privacy scrub (file and account names renamed,
+prompt wording "watched secrets file"). Same Mac, Chrome 158, Gemini Nano, two-pass with
+notes, all 266 alerts, 0 timeouts:
+
+| Alerts | Exact | Danger caught | False alarms |
+|---|---|---|---|
+| all | 99.2% (264/266) | 19/21 | 0 |
+| even | 100% | 11/11 | 0 |
+| odd (held out) | 98.5% | 8/10 | 0 |
+
+No alert changed verdict versus run 6. The 2 misses are the same 2 odd-half alerts.

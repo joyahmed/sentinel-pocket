@@ -71,7 +71,7 @@ tuning, odd ids were held out and scored only in the final run.
 | Noise left as "check" | 0 | 0 | 0 |
 | Timeouts | 0 | 0 | 0 |
 
-- Time: about 2.0 s per alert on average (2026 ms). Pass 2 ran on 64 of 266 alerts and adds about 0.5 s per alert on average.
+- Time: about 2.5 s per alert on average, both passes together (2,525 ms; pass 1 alone about 2.0 s). Pass 2 runs only on alerts pass 1 flags: 64 of 266 here.
 - Before two passes: one pass without house notes caught 20/21 dangers but raised 45 false alarms (76.3% exact). One pass with house notes had 0 false alarms but caught only 10/21 (95.1% exact).
 
 Every round, the method and the misses: `docs/EVAL.md`.
