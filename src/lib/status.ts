@@ -9,7 +9,7 @@ export type Notice = { tone: Tone; text: string } | null;
 
 const DEVICE_PILL: Record<OnDeviceState, Pill> = {
   checking: { key: "device", label: "checking on-device AI", tone: "noise" },
-  available: { key: "device", label: "on-device ready", tone: "device" },
+  available: { key: "device", label: "on-device available", tone: "device" },
   downloadable: { key: "device", label: "on-device not downloaded", tone: "check" },
   downloading: { key: "device", label: "on-device downloading", tone: "check" },
   unavailable: { key: "device", label: "no on-device AI", tone: "check" },
@@ -18,7 +18,8 @@ const DEVICE_PILL: Record<OnDeviceState, Pill> = {
 
 // health: what the triage hook learned by asking Nano this page session (see
 // lib/hybrid). "warming": the first probe is waiting for a cold Nano to load.
-// "retrying"/"stuck": Chrome says available, but Nano did not answer in time.
+// "ok" = Nano really answered, the only time the pill says "ready" (availability()
+// "available" only means installed, not loaded). "retrying"/"stuck": Chrome says available, but Nano did not answer in time.
 export const statusOf = (online: boolean, onDevice: OnDeviceState, fixture: boolean, health: DeviceHealth = "unknown") => {
   const deviceStuck = health === "retrying" || health === "stuck";
   const hasDevice = onDevice === "available" && !deviceStuck;
@@ -27,7 +28,9 @@ export const statusOf = (online: boolean, onDevice: OnDeviceState, fixture: bool
       ? { key: "device", label: "on-device not answering", tone: "check" }
       : health === "warming"
         ? { key: "device", label: "on-device warming up", tone: "check" }
-        : DEVICE_PILL[onDevice],
+        : onDevice === "available" && health === "ok"
+          ? { key: "device", label: "on-device ready", tone: "device" }
+          : DEVICE_PILL[onDevice],
     online ? { key: "net", label: "online", tone: "noise" } : { key: "net", label: "offline", tone: "danger" },
     ...(fixture ? [{ key: "fixture", label: "dev fixture: fake verdicts", tone: "check" as const }] : []),
   ];
