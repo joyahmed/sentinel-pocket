@@ -53,7 +53,7 @@ Splitting the two jobs fixed both. The rules live in `src/lib/triage.ts`
 (`hardSigns`, `mergeVerdicts`); the home screen uses them through
 `src/hooks/use-triage.ts`, and so does the eval page.
 
-**When an AI does not answer**, the home screen degrades instead of stalling: one 8 s on-device probe before the first night; if Nano is silent, every alert goes to Gemini in the cloud (one call at a time, one retry on a 429); if the cloud is also out, a hard sign alone marks the alert danger ("flagged by rule") and anything else is shown as "not sorted" (`src/lib/hybrid.ts`). The eval page still measures Nano alone.
+**When an AI does not answer**, the home screen degrades instead of stalling: one on-device probe before the first night, which waits up to 30 s because Nano can take that long to load after a Chrome restart (the status strip says it is warming up); if Nano is still silent, alerts go to Gemini in the cloud while Nano is asked again in the background every 20 s (3 tries), and the rest of the night moves back on-device as soon as it answers. Cloud calls run one at a time, with one retry on a 429; if the cloud is also out, a hard sign alone marks the alert danger ("flagged by rule") and anything else is shown as "not sorted" (`src/lib/hybrid.ts`). The eval page still measures Nano alone.
 
 ## Results
 
@@ -84,7 +84,7 @@ Every round, the method and the misses: `docs/EVAL.md`.
 - **Pass 2 is weak on its own.** It said "noise" on all 64 alerts it saw. The hard signs are what stop real danger from being excused.
 - **The labelled set is small:** 266 alerts, only 21 of them danger, from one server.
 - **The held-out half is not fully independent.** Many alerts come in near-identical pairs, and I read the first miss list across both halves to find the failure kinds. Fresh alerts are the real test.
-- **Windows:** while I was building it, Gemini Nano in Chrome on Windows once hung for more than 4 minutes on one alert. Every model call now has a 20 s limit, and a timeout is counted as its own result, never dropped. The numbers above are from the Mac. On a Chrome whose Nano says "available" but never answers, the home screen now notices in 8 s and sorts in the cloud or by the rules (Break-in replay: 10 s with no AI at all, was 14 × 20 s).
+- **Windows:** while I was building it, Gemini Nano in Chrome on Windows once hung for more than 4 minutes on one alert. Every model call now has a 20 s limit, and a timeout is counted as its own result, never dropped. The numbers above are from the Mac. On a Chrome whose Nano says "available" but never answers, the home screen waits 30 s once, then sorts in the cloud or by the rules with no per-alert waits (Break-in replay, headless with a silent Nano stub: 48 s, was 14 × 20 s).
 - **Cloud quota:** "Investigate deeper" uses the Gemini free tier, which returns a rate-limit error (429) under heavy use. The app says so in plain words.
 
 ## Run it

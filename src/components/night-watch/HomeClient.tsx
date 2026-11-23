@@ -11,7 +11,7 @@ import AlertDetail from "@/components/night-watch/AlertDetail";
 
 const HomeClient = () => {
   const nw = useNightWatch();
-  const { pills, notice } = statusOf(nw.online, nw.onDevice, nw.fixture, nw.deviceHealth === "stuck");
+  const { pills, notice } = statusOf(nw.online, nw.onDevice, nw.fixture, nw.deviceHealth);
 
   return (
     <>

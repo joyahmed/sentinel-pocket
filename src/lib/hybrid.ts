@@ -3,10 +3,17 @@
 // code-only hard signs. No React here.
 import { hardSigns, type Alert, type Verdict } from "@/lib/triage";
 
-// One tiny on-device prompt before a night starts. A wedged Gemini Nano says
-// "available" and then never answers; this finds out in 8 s, not 20 s per alert.
-export const PROBE_TIMEOUT_MS = 8_000;
-export type DeviceHealth = "unknown" | "ok" | "stuck";
+// One tiny on-device prompt before a night starts. The first one after a Chrome
+// restart waits up to 30 s, because Gemini Nano can take that long to load
+// (status: "warming"). A Nano that misses it is skipped, and re-probed in the
+// background every 20 s, a few times; the first answer sends the rest of the
+// night back on-device ("ok"). A wedged Nano says "available" and never answers:
+// it costs one 30 s wait, then no per-alert waits ("retrying", then "stuck").
+export const COLD_PROBE_MS = 30_000;
+export const REPROBE_MS = 15_000;
+export const REPROBE_EVERY_MS = 20_000;
+export const REPROBE_MAX = 3;
+export type DeviceHealth = "unknown" | "warming" | "ok" | "retrying" | "stuck";
 
 // Verdict from the code rules alone, for when neither AI answered. Only a hard
 // sign gives one; anything else stays unsorted (honest, not a guess).

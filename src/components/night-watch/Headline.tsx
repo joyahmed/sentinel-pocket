@@ -15,12 +15,11 @@ const Headline = ({ counts, running, notice }: HeadlineProps) => {
     counts.avgMs !== null ? `${counts.avgMs.toLocaleString("en-US")} ms per alert` : null,
     counts.failed ? `${counts.failed} could not be sorted` : null,
   ].filter(Boolean);
-  // Never say "go back to sleep" while alerts are still unread.
-  const rest = counts.failed
-    ? ` ${counts.failed} not sorted - read them.`
-    : need > 0
-      ? " Read those first."
-      : " Go back to sleep.";
+  // Never say "go back to sleep" while alerts are still unread. "Read those
+  // first" sits on the need-you line so it cannot be read as the noise.
+  const done = !running;
+  const readNeed = done && need > 0 && !counts.failed;
+  const rest = !done ? "" : counts.failed ? ` ${counts.failed} not sorted - read them.` : need > 0 ? "" : " Go back to sleep.";
 
   return (
     <div>
@@ -30,9 +29,17 @@ const Headline = ({ counts, running, notice }: HeadlineProps) => {
         </h1>
       ) : (
         <h1 className="font-mono text-[30px] leading-[1.08] font-light tracking-[-0.04em] lg:text-[54px]">
-          <b className={`font-extrabold ${needTone}`}>{need}</b> need you{running ? " so far" : ""}.{" "}
+          <b className={`font-extrabold ${needTone}`}>{need}</b> need you{running ? " so far" : ""}
+          {readNeed ? (
+            <>
+              {"\u00a0- "}
+              <span className="whitespace-nowrap">read those first.</span>
+            </>
+          ) : (
+            "."
+          )}{" "}
           <br />
-          {counts.noise} are noise.{running ? "" : rest}
+          {counts.noise} are noise.{rest}
         </h1>
       )}
       <p className="mt-3 max-w-[70ch] text-[15px] text-muted">

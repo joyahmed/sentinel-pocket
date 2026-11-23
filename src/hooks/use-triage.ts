@@ -3,10 +3,11 @@
 // Sorts a night of alerts one by one. Each alert tries, in order: Gemini Nano in
 // this Chrome (the hybrid model), Gemini in the cloud (paced, see lib/hybrid),
 // then the code hard signs alone. Each row records the verdict, where it came
-// from (on_device, in_cloud, rule) and how long it took. A wedged Nano is found
-// by one short probe before the first night and is not asked again this page
-// session. Loading a new set or pressing stop abandons the current run.
-import { useEffect, useRef, useState } from "react";
+// from (on_device, in_cloud, rule) and how long it took. One probe before the
+// first night lets a cold Nano load (up to 30 s); a Nano that misses it is
+// re-probed in the background and rejoins as soon as it answers (lib/hybrid).
+// Loading a new set or pressing stop abandons the current run.
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { cloudTriageModel, triageModel } from "@/lib/firebase";
 import {
   type Alert,
@@ -19,16 +20,42 @@ import {
   secondLookText,
   withTimeout,
 } from "@/lib/triage";
-import { CloudBusy, PROBE_TIMEOUT_MS, cloudPaced, ruleVerdict, type DeviceHealth } from "@/lib/hybrid";
+import {
+  COLD_PROBE_MS,
+  CloudBusy,
+  REPROBE_EVERY_MS,
+  REPROBE_MAX,
+  REPROBE_MS,
+  cloudPaced,
+  ruleVerdict,
+  type DeviceHealth,
+} from "@/lib/hybrid";
 import type { RowSource, TriageRow } from "@/lib/night";
 import { DEFAULT_NOTES } from "@/hooks/use-eval";
 
 type Route = "device" | "cloud";
 type LanguageModelApi = { availability: (opts?: object) => Promise<string> };
 
-// Page-session memory: once Nano fails to answer it stays skipped until reload.
+// Page-session memory of Nano's health, shared by every hook instance. Changes
+// can come from a background re-probe, so React reads it as an external store.
 let health: DeviceHealth = "unknown";
-let probed = false;
+let coldProbe: Promise<void> | null = null;
+let reprobes = 0;
+let reprobing = false;
+const listeners = new Set<() => void>();
+const subscribe = (f: () => void) => {
+  listeners.add(f);
+  return () => {
+    listeners.delete(f);
+  };
+};
+const getHealth = () => health;
+const serverHealth = (): DeviceHealth => "unknown";
+
+const setHealth = (h: DeviceHealth) => {
+  health = h;
+  listeners.forEach((f) => f());
+};
 
 const nanoAvailable = async () => {
   const LM = (globalThis as unknown as { LanguageModel?: LanguageModelApi }).LanguageModel;
@@ -44,6 +71,44 @@ const PROBE_TEXT = alertText(
   "",
 );
 
+// One tiny prompt. "ok": Nano answered. "cloud": the SDK chose the cloud (Nano
+// not usable), so stop asking. "missed": no answer in time, or an error.
+const probeOnce = async (ms: number) => {
+  try {
+    const r = await withTimeout(() => triageModel().generateContent(PROBE_TEXT), ms);
+    return r.response.inferenceSource === "on_device" ? "ok" : "cloud";
+  } catch {
+    return "missed";
+  }
+};
+
+const settle = (got: "ok" | "cloud" | "missed") =>
+  got === "ok" ? setHealth("ok") : got === "cloud" ? setHealth("unknown") : reprobeLater();
+
+// Nano missed a probe or an alert: skip it, and ask again in the background
+// every REPROBE_EVERY_MS, at most REPROBE_MAX times this page session. This
+// never blocks a night; the alert loop reads `health` before each alert.
+const reprobeLater = () => {
+  if (reprobing) return;
+  if (reprobes >= REPROBE_MAX) return setHealth("stuck");
+  reprobing = true;
+  setHealth("retrying");
+  setTimeout(async () => {
+    reprobes++;
+    const got = await probeOnce(REPROBE_MS);
+    reprobing = false;
+    settle(got);
+  }, REPROBE_EVERY_MS);
+};
+
+// The first probe of the page session waits long enough for a cold Nano to load.
+const warmUp = () =>
+  (coldProbe ??= (async () => {
+    if (!(await nanoAvailable())) return;
+    setHealth("warming");
+    settle(await probeOnce(COLD_PROBE_MS));
+  })());
+
 // Why no AI answered, in a form explainError (lib/status) can read.
 const whyText = (e: unknown) =>
   e instanceof TriageTimeout || e instanceof CloudBusy ? e.message : e instanceof Error ? e.message : String(e ?? "no AI answered");
@@ -53,16 +118,11 @@ const useTriage = () => {
   const [running, setRunning] = useState(false);
   const [notes, setNotes] = useState(DEFAULT_NOTES);
   const [fixture, setFixture] = useState(false);
-  const [deviceHealth, setDeviceHealth] = useState<DeviceHealth>(health);
+  const deviceHealth = useSyncExternalStore(subscribe, getHealth, serverHealth);
   const runId = useRef(0);
 
   const patch = (i: number, next: Partial<TriageRow>) =>
     setRows((prev) => prev.map((r, j) => (j === i ? { ...r, ...next } : r)));
-
-  const setHealth = (h: DeviceHealth) => {
-    health = h;
-    setDeviceHealth(h);
-  };
 
   const ask = async (text: string, route: Route) => {
     const r =
@@ -72,19 +132,8 @@ const useTriage = () => {
     return { verdict: parseVerdict(r.response.text()), source: r.response.inferenceSource as RowSource };
   };
 
-  // One tiny on-device prompt with a short limit. A miss marks Nano "stuck".
-  const probe = async () => {
-    probed = true;
-    try {
-      const r = await withTimeout(() => triageModel().generateContent(PROBE_TEXT), PROBE_TIMEOUT_MS);
-      if (r.response.inferenceSource === "on_device") setHealth("ok");
-    } catch {
-      setHealth("stuck");
-    }
-  };
-
-  // Pass 1 on the best route left. A device timeout marks Nano stuck and the
-  // same alert goes to the cloud. `result` is null when no AI answered.
+  // Pass 1 on the best route left. A device timeout sends Nano back to
+  // background re-probing and the same alert goes to the cloud. `result` is null when no AI answered.
   const firstPass = async (text: string) => {
     let why: unknown;
     if (health === "ok") {
@@ -92,7 +141,7 @@ const useTriage = () => {
         return { result: await ask(text, "device"), why };
       } catch (e) {
         why = e;
-        if (e instanceof TriageTimeout) setHealth("stuck");
+        if (e instanceof TriageTimeout) reprobeLater();
       }
     }
     if (!navigator.onLine) return { result: null, why: why ?? new Error("offline") };
@@ -126,7 +175,7 @@ const useTriage = () => {
     } else if (verdict && verdict.verdict !== "noise" && notes.trim()) {
       const route: Route = p1.source === "on_device" && health === "ok" ? "device" : "cloud";
       const p2 = await ask(secondLookText(a, notes, verdict.verdict), route).catch((e) => {
-        if (route === "device" && e instanceof TriageTimeout) setHealth("stuck");
+        if (route === "device" && e instanceof TriageTimeout) reprobeLater();
         return null;
       });
       if (p2?.verdict && mergeVerdicts(verdict.verdict, p2.verdict.verdict, hard) === "noise") verdict = p2.verdict;
@@ -142,7 +191,8 @@ const useTriage = () => {
     setFixture(false);
     setRows(alerts.map((alert) => ({ alert, status: "waiting" })));
     setRunning(true);
-    if (!probed && (await nanoAvailable())) await probe();
+    await warmUp();
+    if (!live()) return;
     for (const [i, a] of alerts.entries()) {
       if (!live()) return;
       await askOne(a, i, live);

@@ -1,6 +1,7 @@
 // What the status strip and the notice line say, from three facts: online,
 // on-device model state, and whether dev fixture rows are on screen.
 import type { OnDeviceState } from "@/hooks/use-on-device";
+import type { DeviceHealth } from "@/lib/hybrid";
 
 export type Tone = "device" | "danger" | "check" | "noise" | "ink";
 export type Pill = { key: string; label: string; tone: Tone };
@@ -15,12 +16,18 @@ const DEVICE_PILL: Record<OnDeviceState, Pill> = {
   missing: { key: "device", label: "no on-device AI", tone: "check" },
 };
 
-// deviceStuck: Chrome says on-device is available, but it did not answer a short
-// probe or an alert this page session (see hooks/use-triage).
-export const statusOf = (online: boolean, onDevice: OnDeviceState, fixture: boolean, deviceStuck = false) => {
+// health: what the triage hook learned by asking Nano this page session (see
+// lib/hybrid). "warming": the first probe is waiting for a cold Nano to load.
+// "retrying"/"stuck": Chrome says available, but Nano did not answer in time.
+export const statusOf = (online: boolean, onDevice: OnDeviceState, fixture: boolean, health: DeviceHealth = "unknown") => {
+  const deviceStuck = health === "retrying" || health === "stuck";
   const hasDevice = onDevice === "available" && !deviceStuck;
   const pills: Pill[] = [
-    deviceStuck ? { key: "device", label: "on-device not answering", tone: "check" } : DEVICE_PILL[onDevice],
+    deviceStuck
+      ? { key: "device", label: "on-device not answering", tone: "check" }
+      : health === "warming"
+        ? { key: "device", label: "on-device warming up", tone: "check" }
+        : DEVICE_PILL[onDevice],
     online ? { key: "net", label: "online", tone: "noise" } : { key: "net", label: "offline", tone: "danger" },
     ...(fixture ? [{ key: "fixture", label: "dev fixture: fake verdicts", tone: "check" as const }] : []),
   ];
@@ -31,6 +38,16 @@ export const statusOf = (online: boolean, onDevice: OnDeviceState, fixture: bool
     notice = {
       tone: "danger",
       text: "Offline, and this browser has no working on-device AI. Only the built-in rules can flag alerts right now.",
+    };
+  else if (health === "warming")
+    notice = {
+      tone: "device",
+      text: "Warming up Chrome's on-device AI... The first night after a Chrome restart can take up to 30 s to start.",
+    };
+  else if (health === "retrying")
+    notice = {
+      tone: "check",
+      text: "Chrome's on-device AI has not answered yet - using the cloud and the built-in rules, and checking it again in the background.",
     };
   else if (deviceStuck)
     notice = {
