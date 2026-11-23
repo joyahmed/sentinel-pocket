@@ -75,7 +75,7 @@ Shots:
 
 Shots:
 1. Show `src/lib/firebase.ts` in the editor for 3 seconds (`PREFER_ON_DEVICE`, `ONLY_IN_CLOUD`, `ReCaptchaEnterpriseProvider` in view), or the README "How Firebase AI Logic is used" section.
-2. End on the GitHub repo page (REPO_URL, fill in once the repo is public) with the README visible.
+2. End on the GitHub repo page (https://github.com/joyahmed/sentinel-pocket) with the README visible.
 
 ## After recording
 
@@ -94,7 +94,7 @@ Built with Firebase AI Logic (hybrid on-device and cloud inference) and App Chec
 
 Measured on 266 labelled alerts, all on-device: 99.2% exact, 19 of 21 dangers caught, 0 false alarms. Held-out half: 98.5%, 8 of 10, 0 false alarms.
 
-Code (Apache-2.0): REPO_URL
+Code (Apache-2.0): https://github.com/joyahmed/sentinel-pocket
 
 #BuildHybridAI
 ```
