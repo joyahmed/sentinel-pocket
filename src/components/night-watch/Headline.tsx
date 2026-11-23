@@ -11,6 +11,7 @@ const Headline = ({ counts, running, notice }: HeadlineProps) => {
     `${counts.danger} danger`,
     `${counts.check} to check`,
     counts.sorted ? `${counts.onDevice} of ${counts.sorted} sorted on this device` : null,
+    counts.byRule ? `${counts.byRule} flagged by rule (no AI answered)` : null,
     counts.avgMs !== null ? `${counts.avgMs.toLocaleString("en-US")} ms per alert` : null,
     counts.failed ? `${counts.failed} could not be sorted` : null,
   ].filter(Boolean);

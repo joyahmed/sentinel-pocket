@@ -3,8 +3,10 @@
 import type { InferenceSource } from "firebase/ai";
 import type { Alert, Verdict } from "@/lib/triage";
 
-export type RowStatus = "waiting" | "sorting" | "done" | "error" | "timeout";
-export type RowSource = InferenceSource | "fixture";
+// "unsorted": no AI answered and no hard sign fired - the owner must read it.
+export type RowStatus = "waiting" | "sorting" | "done" | "error" | "timeout" | "unsorted";
+// "rule": no AI answered; a code hard sign alone made it danger.
+export type RowSource = InferenceSource | "fixture" | "rule";
 
 export type TriageRow = {
   alert: Alert;
@@ -21,16 +23,17 @@ export const countNight = (rows: TriageRow[]) => {
   const done = rows.filter((r) => r.status === "done");
   const n = (v: Level) => done.filter((r) => r.verdict?.verdict === v).length;
   const onDevice = done.filter((r) => r.source === "on_device").length;
-  const timed = done.filter((r) => typeof r.ms === "number");
+  const timed = done.filter((r) => typeof r.ms === "number" && r.source !== "rule");
   return {
     total: rows.length,
     sorted: done.length,
-    failed: rows.filter((r) => r.status === "error" || r.status === "timeout").length,
+    failed: rows.filter((r) => r.status === "error" || r.status === "timeout" || r.status === "unsorted").length,
     danger: n("danger"),
     check: n("check"),
     noise: n("noise"),
     onDevice,
     inCloud: done.filter((r) => r.source === "in_cloud").length,
+    byRule: done.filter((r) => r.source === "rule").length,
     avgMs: timed.length ? Math.round(timed.reduce((s, r) => s + (r.ms ?? 0), 0) / timed.length) : null,
   };
 };
@@ -38,7 +41,7 @@ export const countNight = (rows: TriageRow[]) => {
 export type NightCounts = ReturnType<typeof countNight>;
 
 const RANK: Record<Level, number> = { danger: 0, check: 1, noise: 2 };
-const rank = (r: TriageRow) => (r.verdict ? RANK[r.verdict.verdict] : r.status === "error" || r.status === "timeout" ? 3 : 4);
+const rank = (r: TriageRow) => (r.verdict ? RANK[r.verdict.verdict] : r.status === "error" || r.status === "timeout" || r.status === "unsorted" ? 3 : 4);
 
 // Danger first, then check, then noise; newest first inside each group.
 export const orderForList = (rows: TriageRow[]) =>

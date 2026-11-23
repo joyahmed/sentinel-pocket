@@ -10,11 +10,11 @@ const BAR = {
   noise: "shadow-[inset_2px_0_0_var(--color-noise)]",
 } as const;
 
-const SOURCE = { on_device: "device", in_cloud: "cloud", fixture: "fixture" } as const;
+const SOURCE = { on_device: "device", in_cloud: "cloud", fixture: "fixture", rule: "rule" } as const;
 
 const AlertRow = ({ row, selected, withDate, onSelect }: AlertRowProps) => {
   const level = row.verdict?.verdict;
-  const tone = row.status === "timeout" ? "check" : row.status === "error" ? "danger" : (level ?? "noise");
+  const tone = row.status === "timeout" || row.status === "unsorted" ? "check" : row.status === "error" ? "danger" : (level ?? "noise");
   const dim = level === "noise" || row.status === "waiting";
   return (
     <li>

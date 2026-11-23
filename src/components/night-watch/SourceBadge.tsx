@@ -5,6 +5,7 @@ type SourceBadgeProps = { source?: RowSource; ms?: number; model?: string };
 const LOOK: Record<RowSource, { label: string; cls: string }> = {
   on_device: { label: "◆ ran on this device", cls: "border-device text-device" },
   in_cloud: { label: "○ ran in the cloud", cls: "border-line-strong text-ink" },
+  rule: { label: "▲ flagged by rule", cls: "border-danger text-danger" },
   fixture: { label: "dev fixture", cls: "border-check text-check" },
 };
 

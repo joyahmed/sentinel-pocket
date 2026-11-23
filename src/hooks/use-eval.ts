@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import alerts from "../../data/alerts.json";
 import {
   type Alert,
+  EN_TEXT,
   SYSTEM_PROMPT,
   TRIAGE_TIMEOUT_MS,
   TriageTimeout,
@@ -76,7 +77,7 @@ type LanguageModelSession = {
   destroy: () => void;
 };
 type LanguageModelApi = {
-  availability: () => Promise<string>;
+  availability: (opts?: object) => Promise<string>;
   create: (opts: object) => Promise<LanguageModelSession>;
 };
 
@@ -91,7 +92,7 @@ export const inHalf = (id: string, half: EvalHalf) =>
 // so it gets the same time limit and honours Stop.
 const createBase = (LM: LanguageModelApi, stop: AbortSignal) =>
   withTimeout(
-    (signal) => LM.create({ initialPrompts: [{ role: "system", content: SYSTEM_PROMPT }], signal }),
+    (signal) => LM.create({ initialPrompts: [{ role: "system", content: SYSTEM_PROMPT }], ...EN_TEXT, signal }),
     TRIAGE_TIMEOUT_MS,
     stop,
   );
@@ -188,7 +189,7 @@ const useEval = () => {
     const max = opts.limit ?? limit;
     const LM = (globalThis as unknown as { LanguageModel?: LanguageModelApi }).LanguageModel;
     if (!LM) return setStatus("no LanguageModel in this browser");
-    const avail = await LM.availability();
+    const avail = await LM.availability(EN_TEXT);
     if (avail !== "available") return setStatus(`model: ${avail}`);
     const stop = new AbortController();
     stopRef.current = stop;

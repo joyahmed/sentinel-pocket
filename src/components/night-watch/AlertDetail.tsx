@@ -13,6 +13,7 @@ const TITLE: Record<Exclude<TriageRow["status"], "done">, string> = {
   sorting: "Reading this alert…",
   timeout: "The AI did not answer in 20 seconds. Skipped - the night kept going.",
   error: "This one could not be sorted.",
+  unsorted: "Not sorted: no AI answered and no rule fired. Read it yourself.",
 };
 
 // In-place detail panel (not a route): what happened, the raw line, next step.
@@ -39,9 +40,9 @@ const AlertDetail = ({ row, rows, online }: AlertDetailProps) => {
       <p className="mt-2 font-mono text-[10px] text-muted">
         {alert.id} · rule {alert.rule} · {alert.severity}
       </p>
-      {status === "error" && row.error && (
+      {(status === "error" || status === "unsorted" || row.source === "rule") && row.error && (
         <>
-          <p className="mt-3 text-[15px] text-danger">{explainError(row.error)}</p>
+          <p className={`mt-3 text-[15px] ${status === "error" ? "text-danger" : "text-check"}`}>{explainError(row.error)}</p>
           <p className="mt-1.5 font-mono text-[11px] [overflow-wrap:anywhere] text-muted">{row.error}</p>
         </>
       )}

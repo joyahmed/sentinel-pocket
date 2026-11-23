@@ -56,6 +56,13 @@ Step 2 - "noise" if it is routine work:
 Step 3 - "check" only if neither step fits. Check is rare.
 reason: one plain sentence, at most 25 words. next_step: one short instruction.`;
 
+// Chrome's Prompt API warns in the console when a session has no language.
+// Every on-device session is created with English text in and out.
+export const EN_TEXT = {
+  expectedInputs: [{ type: "text" as const, languages: ["en"] }],
+  expectedOutputs: [{ type: "text" as const, languages: ["en"] }],
+};
+
 // One on-device answer must not hold the page forever: Gemini Nano has been seen
 // to hang for minutes on a single alert. Every prompt call gets this budget.
 export const TRIAGE_TIMEOUT_MS = 20_000;

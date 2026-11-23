@@ -7,6 +7,7 @@ const PENDING: Record<Exclude<RowStatus, "done">, { label: string; cls: string }
   waiting: { label: "waiting", cls: "text-noise-dim" },
   sorting: { label: "sorting", cls: "text-device animate-led" },
   timeout: { label: "timed out", cls: "border border-check/40 text-check" },
+  unsorted: { label: "not sorted", cls: "border border-check/40 text-check" },
   error: { label: "failed", cls: "border border-danger/40 text-danger" },
 };
 

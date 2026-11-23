@@ -1,5 +1,6 @@
 // Firebase AI Logic: one app, two models over the same triage contract.
 // - triageModel: hybrid, prefer on-device (Gemini Nano in Chrome), cloud fallback.
+// - cloudTriageModel: the same triage, cloud only (on-device missing or stuck).
 // - investigateModel: cloud only, used when the owner asks for a deep look.
 import { initializeApp, getApps, type FirebaseApp } from "firebase/app";
 import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "firebase/app-check";
@@ -10,8 +11,9 @@ import {
   InferenceMode,
   Schema,
   type GenerativeModel,
+  type ModelParams,
 } from "firebase/ai";
-import { SYSTEM_PROMPT, VERDICT_SCHEMA } from "@/lib/triage";
+import { EN_TEXT, SYSTEM_PROMPT, VERDICT_SCHEMA } from "@/lib/triage";
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -34,8 +36,16 @@ const cloudVerdictSchema = Schema.object({
   },
 });
 
+// The cloud half of triage, shared by the hybrid and the cloud-only model.
+const cloudTriageParams: ModelParams = {
+  model: CLOUD_MODEL,
+  systemInstruction: SYSTEM_PROMPT,
+  generationConfig: { responseMimeType: "application/json", responseSchema: cloudVerdictSchema },
+};
+
 let app: FirebaseApp | null = null;
 let triage: GenerativeModel | null = null;
+let cloudTriage: GenerativeModel | null = null;
 let investigate: GenerativeModel | null = null;
 
 const firebaseApp = () => {
@@ -56,16 +66,21 @@ export const triageModel = () => {
   triage = getGenerativeModel(ai, {
     mode: InferenceMode.PREFER_ON_DEVICE,
     onDeviceParams: {
-      createOptions: { initialPrompts: [{ role: "system", content: [{ type: "text", value: SYSTEM_PROMPT }] }] },
+      createOptions: { ...EN_TEXT, initialPrompts: [{ role: "system", content: [{ type: "text", value: SYSTEM_PROMPT }] }] },
       promptOptions: { responseConstraint: VERDICT_SCHEMA },
     },
-    inCloudParams: {
-      model: CLOUD_MODEL,
-      systemInstruction: SYSTEM_PROMPT,
-      generationConfig: { responseMimeType: "application/json", responseSchema: cloudVerdictSchema },
-    },
+    inCloudParams: cloudTriageParams,
   });
   return triage;
+};
+
+// The same triage in the cloud only: used when on-device is missing or not
+// answering, so a wedged Gemini Nano is not asked again this page session.
+export const cloudTriageModel = () => {
+  if (cloudTriage) return cloudTriage;
+  const ai = getAI(firebaseApp(), { backend: new GoogleAIBackend() });
+  cloudTriage = getGenerativeModel(ai, { mode: InferenceMode.ONLY_IN_CLOUD, inCloudParams: cloudTriageParams });
+  return cloudTriage;
 };
 
 export const investigateModel = () => {
