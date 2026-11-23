@@ -1,0 +1,3715 @@
+[
+ {
+  "id": "real-001",
+  "source": "real",
+  "time": "2026-11-14T22:35:27Z",
+  "rule": "sentinel",
+  "severity": "critical",
+  "summary": "watchdog stopping (SIGTERM)",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog restarted during maintenance"
+ },
+ {
+  "id": "real-002",
+  "source": "real",
+  "time": "2026-11-14T22:46:44Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "audit rules changed by auid 0 (/usr/sbin/auditctl): audit rule removed: zs_accounts_sudo,zs_files_sudo - rule accounts on native fallback",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog reloading its own audit rules on restart"
+ },
+ {
+  "id": "real-003",
+  "source": "real",
+  "time": "2026-11-14T22:46:44Z",
+  "rule": "files",
+  "severity": "critical",
+  "summary": "audit rules changed by uid 0 (auditctl): audit rule removed: zs_accounts_sudo,zs_files_sudo - rule files on native fallback",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog reloading its own audit rules on restart"
+ },
+ {
+  "id": "real-004",
+  "source": "real",
+  "time": "2026-11-14T22:46:46Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "audit rules changed by no login (/usr/sbin/auditctl): audit rule removed: zs_accounts_sudo,zs_files_sudo - rule accounts on native fallback",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog reloading its own audit rules on restart"
+ },
+ {
+  "id": "real-005",
+  "source": "real",
+  "time": "2026-11-14T22:46:46Z",
+  "rule": "files",
+  "severity": "critical",
+  "summary": "audit rules changed by uid 0 (auditctl, no login): audit rule removed: zs_accounts_sudo,zs_files_sudo - rule files on native fallback",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog reloading its own audit rules on restart"
+ },
+ {
+  "id": "real-006",
+  "source": "real",
+  "time": "2026-11-14T22:46:58Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "secrets file /etc/app/secrets/secret32.env read by pid N (/usr/bin/grep, user root)",
+  "context": {
+   "exe": "/usr/bin/grep",
+   "cmdline": "[\"grep\", \"-rIlE\", \"153\\\\.75\\\\.95\\\\.223|pool.example\", \"/etc\", \"/var/spool/cron\", \"/tmp\", \"/var/tmp\", \"/home/deploy\", \"/root\", \"--exclude-dir=node_modules\", \"--exclude-dir=.git\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-873.scope",
+   "path": "/etc/app/secrets/secret32.env"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator searched config files"
+ },
+ {
+  "id": "real-007",
+  "source": "real",
+  "time": "2026-11-14T22:46:58Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "env sweep: pid N read 5 env files in 10s (last by pid N (/usr/bin/grep, user root))",
+  "context": {
+   "exe": "/usr/bin/grep",
+   "cmdline": "[\"grep\", \"-rIlE\", \"153\\\\.75\\\\.95\\\\.223|pool.example\", \"/etc\", \"/var/spool/cron\", \"/tmp\", \"/var/tmp\", \"/home/deploy\", \"/root\", \"--exclude-dir=node_modules\", \"--exclude-dir=.git\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-873.scope",
+   "path": "/etc/app/secrets/secret1.env"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator searched config files"
+ },
+ {
+  "id": "real-008",
+  "source": "real",
+  "time": "2026-11-14T22:46:58Z",
+  "rule": "miner",
+  "severity": "critical",
+  "summary": "pid N (grep, root): falco 'Miner started'; no IOC of ours matched (alert only)",
+  "context": {
+   "exe": "/usr/bin/grep",
+   "cmdline": "grep -rIlE 153\\.75\\.95\\.223|pool.example /etc /var/spool/cron /tmp /var/tmp /home/deploy /root --exclude-dir=node_modules --exclude-dir=.git",
+   "user": "root",
+   "uid": "0"
+  },
+  "truth": "noise",
+  "truth_reason": "a normal system command matched a too-broad miner rule"
+ },
+ {
+  "id": "real-009",
+  "source": "real",
+  "time": "2026-11-14T22:50:27Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "audit rules changed by auid 0 (/usr/sbin/auditctl): audit rule removed: zs_accounts_sudo,zs_files_sudo - rule accounts on native fallback",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog reloading its own audit rules on restart"
+ },
+ {
+  "id": "real-010",
+  "source": "real",
+  "time": "2026-11-14T22:50:27Z",
+  "rule": "files",
+  "severity": "critical",
+  "summary": "audit rules changed by uid 0 (auditctl): audit rule removed: zs_accounts_sudo,zs_files_sudo - rule files on native fallback",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog reloading its own audit rules on restart"
+ },
+ {
+  "id": "real-011",
+  "source": "real",
+  "time": "2026-11-14T22:50:29Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "audit rules changed by no login (/usr/sbin/auditctl): audit rule removed: zs_accounts_sudo,zs_files_sudo - rule accounts on native fallback",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog reloading its own audit rules on restart"
+ },
+ {
+  "id": "real-012",
+  "source": "real",
+  "time": "2026-11-14T22:50:29Z",
+  "rule": "files",
+  "severity": "critical",
+  "summary": "audit rules changed by uid 0 (auditctl, no login): audit rule removed: zs_accounts_sudo,zs_files_sudo - rule files on native fallback",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog reloading its own audit rules on restart"
+ },
+ {
+  "id": "real-013",
+  "source": "real",
+  "time": "2026-11-14T22:50:35Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "secrets file /etc/app/secrets/secret32.env read by pid N (/usr/bin/grep, user root)",
+  "context": {
+   "exe": "/usr/bin/grep",
+   "cmdline": "[\"grep\", \"-rIlE\", \"153\\\\.75\\\\.95\\\\.223|pool.example\", \"/etc\", \"/var/spool/cron\", \"/tmp\", \"/var/tmp\", \"/home/deploy\", \"/root\", \"--exclude-dir=node_modules\", \"--exclude-dir=.git\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-877.scope",
+   "path": "/etc/app/secrets/secret32.env"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator searched config files"
+ },
+ {
+  "id": "real-014",
+  "source": "real",
+  "time": "2026-11-14T22:50:35Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "env sweep: pid N read 5 env files in 10s (last by pid N (/usr/bin/grep, user root))",
+  "context": {
+   "exe": "/usr/bin/grep",
+   "cmdline": "[\"grep\", \"-rIlE\", \"153\\\\.75\\\\.95\\\\.223|pool.example\", \"/etc\", \"/var/spool/cron\", \"/tmp\", \"/var/tmp\", \"/home/deploy\", \"/root\", \"--exclude-dir=node_modules\", \"--exclude-dir=.git\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-877.scope",
+   "path": "/etc/app/secrets/secret1.env"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator searched config files"
+ },
+ {
+  "id": "real-015",
+  "source": "real",
+  "time": "2026-11-14T22:50:35Z",
+  "rule": "miner",
+  "severity": "critical",
+  "summary": "pid N (grep, root): falco 'Miner started'; no IOC of ours matched (alert only)",
+  "context": {
+   "exe": "/usr/bin/grep",
+   "cmdline": "grep -rIlE 153\\.75\\.95\\.223|pool.example /etc /var/spool/cron /tmp /var/tmp /home/deploy /root --exclude-dir=node_modules --exclude-dir=.git",
+   "user": "root",
+   "uid": "0"
+  },
+  "truth": "noise",
+  "truth_reason": "a normal system command matched a too-broad miner rule"
+ },
+ {
+  "id": "real-016",
+  "source": "real",
+  "time": "2026-11-14T22:53:20Z",
+  "rule": "sentinel",
+  "severity": "critical",
+  "summary": "watchdog stopping (SIGTERM)",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog restarted during maintenance"
+ },
+ {
+  "id": "real-017",
+  "source": "real",
+  "time": "2026-11-14T22:53:26Z",
+  "rule": "sentinel",
+  "severity": "critical",
+  "summary": "watchdog stopping (SIGTERM)",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog restarted during maintenance"
+ },
+ {
+  "id": "real-018",
+  "source": "real",
+  "time": "2026-11-14T23:00:34Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "audit rules changed by auid 0 (/usr/sbin/auditctl): audit rule removed: zs_accounts_sudo,zs_files_sudo - rule accounts on native fallback",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog reloading its own audit rules on restart"
+ },
+ {
+  "id": "real-019",
+  "source": "real",
+  "time": "2026-11-14T23:00:34Z",
+  "rule": "files",
+  "severity": "critical",
+  "summary": "audit rules changed by uid 0 (auditctl): audit rule removed: zs_accounts_sudo,zs_files_sudo - rule files on native fallback",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog reloading its own audit rules on restart"
+ },
+ {
+  "id": "real-020",
+  "source": "real",
+  "time": "2026-11-14T23:00:36Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "audit rules changed by no login (/usr/sbin/auditctl): audit rule removed: zs_accounts_sudo,zs_files_sudo - rule accounts on native fallback",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog reloading its own audit rules on restart"
+ },
+ {
+  "id": "real-021",
+  "source": "real",
+  "time": "2026-11-14T23:00:36Z",
+  "rule": "files",
+  "severity": "critical",
+  "summary": "audit rules changed by uid 0 (auditctl, no login): audit rule removed: zs_accounts_sudo,zs_files_sudo - rule files on native fallback",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the watchdog reloading its own audit rules on restart"
+ },
+ {
+  "id": "real-022",
+  "source": "real",
+  "time": "2026-11-14T23:00:43Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "secrets file /etc/app/secrets/secret32.env read by pid N (/usr/bin/grep, user root)",
+  "context": {
+   "exe": "/usr/bin/grep",
+   "cmdline": "[\"grep\", \"-rIlE\", \"153\\\\.75\\\\.95\\\\.223|pool.example\", \"/etc\", \"/var/spool/cron\", \"/tmp\", \"/var/tmp\", \"/home/deploy\", \"/root\", \"--exclude-dir=node_modules\", \"--exclude-dir=.git\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-895.scope",
+   "path": "/etc/app/secrets/secret32.env"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator searched config files"
+ },
+ {
+  "id": "real-023",
+  "source": "real",
+  "time": "2026-11-14T23:00:43Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "env sweep: pid N read 5 env files in 10s (last by pid N (/usr/bin/grep, user root))",
+  "context": {
+   "exe": "/usr/bin/grep",
+   "cmdline": "[\"grep\", \"-rIlE\", \"153\\\\.75\\\\.95\\\\.223|pool.example\", \"/etc\", \"/var/spool/cron\", \"/tmp\", \"/var/tmp\", \"/home/deploy\", \"/root\", \"--exclude-dir=node_modules\", \"--exclude-dir=.git\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-895.scope",
+   "path": "/etc/app/secrets/secret1.env"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator searched config files"
+ },
+ {
+  "id": "real-024",
+  "source": "real",
+  "time": "2026-11-14T23:00:43Z",
+  "rule": "miner",
+  "severity": "critical",
+  "summary": "pid N (grep, root): falco 'Miner started'; no IOC of ours matched (alert only)",
+  "context": {
+   "exe": "/usr/bin/grep",
+   "cmdline": "grep -rIlE 153\\.75\\.95\\.223|pool.example /etc /var/spool/cron /tmp /var/tmp /home/deploy /root --exclude-dir=node_modules --exclude-dir=.git",
+   "user": "root",
+   "uid": "0"
+  },
+  "truth": "noise",
+  "truth_reason": "a normal system command matched a too-broad miner rule"
+ },
+ {
+  "id": "real-025",
+  "source": "real",
+  "time": "2026-11-14T23:10:30Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc1.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc1.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-026",
+  "source": "real",
+  "time": "2026-11-14T23:10:30Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc1.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc1.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-027",
+  "source": "real",
+  "time": "2026-11-14T23:10:56Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc2.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc2.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-028",
+  "source": "real",
+  "time": "2026-11-14T23:10:56Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc2.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc2.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-029",
+  "source": "real",
+  "time": "2026-11-14T23:11:37Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc3.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc3.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-030",
+  "source": "real",
+  "time": "2026-11-14T23:11:37Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc3.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc3.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-031",
+  "source": "real",
+  "time": "2026-11-14T23:12:01Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc4.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc4.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-032",
+  "source": "real",
+  "time": "2026-11-14T23:12:01Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc4.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc4.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-033",
+  "source": "real",
+  "time": "2026-11-14T23:13:02Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc5.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc5.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-034",
+  "source": "real",
+  "time": "2026-11-14T23:13:02Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc5.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc5.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-035",
+  "source": "real",
+  "time": "2026-11-14T23:13:03Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc6.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc6.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-036",
+  "source": "real",
+  "time": "2026-11-14T23:13:03Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc6.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc6.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-037",
+  "source": "real",
+  "time": "2026-11-14T23:13:31Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc7.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc7.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-038",
+  "source": "real",
+  "time": "2026-11-14T23:13:31Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc7.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc7.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-039",
+  "source": "real",
+  "time": "2026-11-14T23:13:32Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc8.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc8.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-040",
+  "source": "real",
+  "time": "2026-11-14T23:13:32Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc8.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc8.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-041",
+  "source": "real",
+  "time": "2026-11-14T23:14:03Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc9.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc9.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-042",
+  "source": "real",
+  "time": "2026-11-14T23:14:03Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc9.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc9.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-043",
+  "source": "real",
+  "time": "2026-11-14T23:14:21Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc10.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc10.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-044",
+  "source": "real",
+  "time": "2026-11-14T23:14:21Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc10.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc10.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-045",
+  "source": "real",
+  "time": "2026-11-14T23:14:21Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc11.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc11.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-046",
+  "source": "real",
+  "time": "2026-11-14T23:14:21Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc11.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc11.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-047",
+  "source": "real",
+  "time": "2026-11-14T23:14:33Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "env sweep: children of pid N read 5 env files in 10s (last by pid N (/usr/bin/grep, user root))",
+  "context": {
+   "exe": "/usr/bin/grep",
+   "cmdline": "[\"grep\", \"-lE\", \"^APPLE_\", \"secret2.env\", \"secret3.env\", \"secret4.env\", \"secret5.env\", \"secret6.env\", \"secret7.env\", \"secret8.env\", \"secret9.env\", \"secret10.env\", \"secret1.env\", \"secret11.env\", \"secret12.env\", \"secret13.env\", \"secret14.env\", \"secret15.env\", \"secret16.env\", \"secret17.env\", \"secret18.env\", \"secret19.env\", \"secret20.env\", \"secret21.env\", \"secret22.env\", \"secret23.env\", \"secret24.env\", \"secret25.env\", \"secret26.env\", \"secret27.env\", \"secret28.env\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-929.scope",
+   "path": "/etc/app/secrets/secret3.env"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator searched config files"
+ },
+ {
+  "id": "real-048",
+  "source": "real",
+  "time": "2026-11-14T23:14:43Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc12.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc12.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-049",
+  "source": "real",
+  "time": "2026-11-14T23:14:43Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc12.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc12.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-050",
+  "source": "real",
+  "time": "2026-11-14T23:15:29Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc13.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc13.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-051",
+  "source": "real",
+  "time": "2026-11-14T23:15:29Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc13.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc13.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-052",
+  "source": "real",
+  "time": "2026-11-14T23:16:03Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc14.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc14.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-053",
+  "source": "real",
+  "time": "2026-11-14T23:16:03Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc14.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc14.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-054",
+  "source": "real",
+  "time": "2026-11-14T23:16:32Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc15.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc15.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-055",
+  "source": "real",
+  "time": "2026-11-14T23:16:32Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc15.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc15.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-056",
+  "source": "real",
+  "time": "2026-11-14T23:17:01Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc16.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc16.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-057",
+  "source": "real",
+  "time": "2026-11-14T23:17:01Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc16.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc16.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-058",
+  "source": "real",
+  "time": "2026-11-14T23:17:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc17.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc17.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-059",
+  "source": "real",
+  "time": "2026-11-14T23:17:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc17.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc17.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-060",
+  "source": "real",
+  "time": "2026-11-14T23:17:46Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc18.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc18.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-061",
+  "source": "real",
+  "time": "2026-11-14T23:17:46Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc18.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc18.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-062",
+  "source": "real",
+  "time": "2026-11-14T23:18:03Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc19.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc19.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-063",
+  "source": "real",
+  "time": "2026-11-14T23:18:03Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc19.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc19.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-064",
+  "source": "real",
+  "time": "2026-11-14T23:18:04Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc20.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc20.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-065",
+  "source": "real",
+  "time": "2026-11-14T23:18:04Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc20.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc20.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-066",
+  "source": "real",
+  "time": "2026-11-14T23:18:39Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc21.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc21.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-067",
+  "source": "real",
+  "time": "2026-11-14T23:18:39Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc21.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc21.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-068",
+  "source": "real",
+  "time": "2026-11-14T23:18:58Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc22.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc22.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-069",
+  "source": "real",
+  "time": "2026-11-14T23:18:58Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc22.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc22.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-070",
+  "source": "real",
+  "time": "2026-11-14T23:18:59Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc23.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc23.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-071",
+  "source": "real",
+  "time": "2026-11-14T23:18:59Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc23.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc23.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-072",
+  "source": "real",
+  "time": "2026-11-14T23:19:41Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc24.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc24.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-073",
+  "source": "real",
+  "time": "2026-11-14T23:19:41Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc24.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc24.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-074",
+  "source": "real",
+  "time": "2026-11-14T23:19:42Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc25.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc25.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-075",
+  "source": "real",
+  "time": "2026-11-14T23:19:42Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc25.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc25.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-076",
+  "source": "real",
+  "time": "2026-11-14T23:28:33Z",
+  "rule": "miner",
+  "severity": "critical",
+  "summary": "pid N (xargs, root): falco 'Miner started'; no IOC of ours matched (alert only)",
+  "context": {
+   "exe": "/usr/bin/xargs",
+   "cmdline": "xargs -0 -r grep -IlE 153\\.75\\.95\\.223|pool.example",
+   "user": "root",
+   "uid": "0"
+  },
+  "truth": "noise",
+  "truth_reason": "a normal system command matched a too-broad miner rule"
+ },
+ {
+  "id": "real-077",
+  "source": "real",
+  "time": "2026-11-14T23:28:33Z",
+  "rule": "miner",
+  "severity": "critical",
+  "summary": "pid N (xargs, root): falco 'Miner started'; no IOC of ours matched (pid now runs another exe, alert only)",
+  "context": {
+   "exe": "/usr/bin/xargs",
+   "cmdline": "xargs -0 -r grep -IlE 153\\.75\\.95\\.223|pool.example",
+   "user": "root",
+   "uid": "0"
+  },
+  "truth": "noise",
+  "truth_reason": "a normal system command matched a too-broad miner rule"
+ },
+ {
+  "id": "real-078",
+  "source": "real",
+  "time": "2026-11-14T23:28:35Z",
+  "rule": "miner",
+  "severity": "critical",
+  "summary": "pid N (xargs, root): falco 'Miner started'; no IOC of ours matched (pid now runs another exe, alert only)",
+  "context": {
+   "exe": "/usr/bin/xargs",
+   "cmdline": "xargs -0 -r grep -IlE 153\\.75\\.95\\.223|pool.example",
+   "user": "root",
+   "uid": "0"
+  },
+  "truth": "noise",
+  "truth_reason": "a normal system command matched a too-broad miner rule"
+ },
+ {
+  "id": "real-079",
+  "source": "real",
+  "time": "2026-11-15T01:55:57Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "env sweep: session 218244 read 5 env files in 10s (last by pid N (/usr/bin/grep, user root))",
+  "context": {
+   "exe": "/usr/bin/grep",
+   "cmdline": "[\"grep\", \"-E\", \"^STORAGE_BUCKET_APP_NAME=\", \"/etc/app/secrets/secret29.env\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-1115.scope",
+   "path": "/etc/app/secrets/secret29.env"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator searched config files"
+ },
+ {
+  "id": "real-080",
+  "source": "real",
+  "time": "2026-11-15T02:16:18Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new systemd timer name1.timer (/etc/systemd/system)",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a scheduled job"
+ },
+ {
+  "id": "real-081",
+  "source": "real",
+  "time": "2026-11-15T02:16:22Z",
+  "rule": "files",
+  "severity": "critical",
+  "summary": "sentinel's own state /var/lib/watchdog/accounts-reported.json changed by another process (uid 0 (accounts, no login)): possible tampering",
+  "context": {
+   "path": "/var/lib/watchdog/accounts-reported.json",
+   "ops": "[\"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "the watchdog saving its own notes (a bug in the watchdog)"
+ },
+ {
+  "id": "real-082",
+  "source": "real",
+  "time": "2026-11-15T02:16:22Z",
+  "rule": "files",
+  "severity": "critical",
+  "summary": "sentinel's own state /var/lib/watchdog/accounts-reported.json.tmp changed by another process (uid 0 (accounts, no login)): possible tampering",
+  "context": {
+   "path": "/var/lib/watchdog/accounts-reported.json.tmp",
+   "ops": "[\"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "the watchdog saving its own notes (a bug in the watchdog)"
+ },
+ {
+  "id": "real-083",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow written, moved in",
+  "context": {
+   "path": "/etc/gshadow",
+   "ops": "[\"written\", \"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-084",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group written, moved in",
+  "context": {
+   "path": "/etc/group",
+   "ops": "[\"written\", \"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-085",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow written, moved in",
+  "context": {
+   "path": "/etc/shadow",
+   "ops": "[\"written\", \"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-086",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd written, moved in",
+  "context": {
+   "path": "/etc/passwd",
+   "ops": "[\"written\", \"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-087",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new user backup-user (uid 957, shell /bin/sh) - by passwd (/usr/bin/passwd) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator created the backup account"
+ },
+ {
+  "id": "real-088",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group.225244 created, written, deleted",
+  "context": {
+   "path": "/etc/group.225244",
+   "ops": "[\"created\", \"written\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-089",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd+ created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/passwd+",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-090",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group- written, attributes changed",
+  "context": {
+   "path": "/etc/group-",
+   "ops": "[\"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-091",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow+ created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/shadow+",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-092",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow- written, attributes changed",
+  "context": {
+   "path": "/etc/gshadow-",
+   "ops": "[\"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-093",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow+ created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/gshadow+",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-094",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow.225244 created, written, deleted",
+  "context": {
+   "path": "/etc/shadow.225244",
+   "ops": "[\"created\", \"written\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-095",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow.lock created, deleted",
+  "context": {
+   "path": "/etc/gshadow.lock",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-096",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd.lock created, deleted",
+  "context": {
+   "path": "/etc/passwd.lock",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-097",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd.225244 created, written, deleted",
+  "context": {
+   "path": "/etc/passwd.225244",
+   "ops": "[\"created\", \"written\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-098",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow.225249 created, written, deleted",
+  "context": {
+   "path": "/etc/shadow.225249",
+   "ops": "[\"created\", \"written\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-099",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group.lock created, deleted",
+  "context": {
+   "path": "/etc/group.lock",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-100",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd- written, attributes changed",
+  "context": {
+   "path": "/etc/passwd-",
+   "ops": "[\"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-101",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow.225244 created, written, deleted",
+  "context": {
+   "path": "/etc/gshadow.225244",
+   "ops": "[\"created\", \"written\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-102",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group+ created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/group+",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-103",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow- written, attributes changed",
+  "context": {
+   "path": "/etc/shadow-",
+   "ops": "[\"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-104",
+  "source": "real",
+  "time": "2026-11-15T02:16:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow.lock created, deleted",
+  "context": {
+   "path": "/etc/shadow.lock",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-105",
+  "source": "real",
+  "time": "2026-11-15T02:16:50Z",
+  "rule": "files",
+  "severity": "critical",
+  "summary": "sentinel's own state /var/lib/watchdog/accounts-reported.json changed by another process (uid 0 (accounts, no login)): possible tampering",
+  "context": {
+   "path": "/var/lib/watchdog/accounts-reported.json",
+   "ops": "[\"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "the watchdog saving its own notes (a bug in the watchdog)"
+ },
+ {
+  "id": "real-106",
+  "source": "real",
+  "time": "2026-11-15T02:16:50Z",
+  "rule": "files",
+  "severity": "critical",
+  "summary": "sentinel's own state /var/lib/watchdog/accounts-reported.json.tmp changed by another process (uid 0 (accounts, no login)): possible tampering",
+  "context": {
+   "path": "/var/lib/watchdog/accounts-reported.json.tmp",
+   "ops": "[\"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "the watchdog saving its own notes (a bug in the watchdog)"
+ },
+ {
+  "id": "real-107",
+  "source": "real",
+  "time": "2026-11-15T02:18:18Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new systemd timer name2.timer (/etc/systemd/system)",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a scheduled job"
+ },
+ {
+  "id": "real-108",
+  "source": "real",
+  "time": "2026-11-15T02:18:21Z",
+  "rule": "files",
+  "severity": "critical",
+  "summary": "sentinel's own state /var/lib/watchdog/accounts-reported.json changed by another process (uid 0 (accounts, no login)): possible tampering",
+  "context": {
+   "path": "/var/lib/watchdog/accounts-reported.json",
+   "ops": "[\"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "the watchdog saving its own notes (a bug in the watchdog)"
+ },
+ {
+  "id": "real-109",
+  "source": "real",
+  "time": "2026-11-15T02:18:21Z",
+  "rule": "files",
+  "severity": "critical",
+  "summary": "sentinel's own state /var/lib/watchdog/accounts-reported.json.tmp changed by another process (uid 0 (accounts, no login)): possible tampering",
+  "context": {
+   "path": "/var/lib/watchdog/accounts-reported.json.tmp",
+   "ops": "[\"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "the watchdog saving its own notes (a bug in the watchdog)"
+ },
+ {
+  "id": "real-110",
+  "source": "real",
+  "time": "2026-11-15T02:22:19Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new authorized_keys line for backup-user in /var/lib/backup-user/.ssh/authorized_keys: ssh-ed25519 <key>",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "backup account given its key at setup"
+ },
+ {
+  "id": "real-111",
+  "source": "real",
+  "time": "2026-11-15T03:26:20Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-enabled/site7 created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/nginx/sites-enabled/site7",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-112",
+  "source": "real",
+  "time": "2026-11-15T03:26:20Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-enabled/site8 moved in",
+  "context": {
+   "path": "/etc/nginx/sites-enabled/site8",
+   "ops": "[\"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-113",
+  "source": "real",
+  "time": "2026-11-15T03:26:40Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site8 created, written",
+  "context": {
+   "path": "/etc/nginx/sites-available/site8",
+   "ops": "[\"created\", \"written\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-114",
+  "source": "real",
+  "time": "2026-11-15T03:30:02Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "secrets file /etc/app/secrets/secret32.env read by pid N (/usr/bin/tar, user root)",
+  "context": {
+   "exe": "/usr/bin/tar",
+   "cmdline": "[\"tar\", \"-C\", \"/\", \"-czf\", \"-\", \"root/vault\", \"etc/name3\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "nightly-backup.service",
+   "path": "/etc/app/secrets/secret32.env"
+  },
+  "truth": "noise",
+  "truth_reason": "the nightly encrypted backup reads the secrets folder"
+ },
+ {
+  "id": "real-115",
+  "source": "real",
+  "time": "2026-11-15T03:30:02Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "env sweep: pid N read 5 env files in 10s (last by pid N (/usr/bin/tar, user root))",
+  "context": {
+   "exe": "/usr/bin/tar",
+   "cmdline": "[\"tar\", \"-C\", \"/\", \"-czf\", \"-\", \"root/vault\", \"etc/name3\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "nightly-backup.service",
+   "path": "/etc/app/secrets/secret30.env"
+  },
+  "truth": "noise",
+  "truth_reason": "the nightly encrypted backup reads the secrets folder"
+ },
+ {
+  "id": "real-116",
+  "source": "real",
+  "time": "2026-11-15T03:31:20Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-enabled/site8 created, deleted (latest of 1 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/nginx/sites-enabled/site8",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-117",
+  "source": "real",
+  "time": "2026-11-15T03:39:27Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site4 moved in",
+  "context": {
+   "path": "/etc/nginx/sites-available/site4",
+   "ops": "[\"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-118",
+  "source": "real",
+  "time": "2026-11-15T03:39:27Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site9 created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/nginx/sites-available/site9",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-119",
+  "source": "real",
+  "time": "2026-11-15T03:42:51Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site10 created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/nginx/sites-available/site10",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-120",
+  "source": "real",
+  "time": "2026-11-15T03:42:51Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site11 moved in",
+  "context": {
+   "path": "/etc/nginx/sites-available/site11",
+   "ops": "[\"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-121",
+  "source": "real",
+  "time": "2026-11-15T03:43:57Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site12 created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/nginx/sites-available/site12",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-122",
+  "source": "real",
+  "time": "2026-11-15T03:43:57Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site13 moved in",
+  "context": {
+   "path": "/etc/nginx/sites-available/site13",
+   "ops": "[\"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-123",
+  "source": "real",
+  "time": "2026-11-16T03:30:07Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "secrets file /etc/app/secrets/secret32.env read by pid N (/usr/bin/tar, user root)",
+  "context": {
+   "exe": "/usr/bin/tar",
+   "cmdline": "[\"tar\", \"-C\", \"/\", \"-czf\", \"-\", \"root/vault\", \"etc/name3\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "nightly-backup.service",
+   "path": "/etc/app/secrets/secret32.env"
+  },
+  "truth": "noise",
+  "truth_reason": "the nightly encrypted backup reads the secrets folder"
+ },
+ {
+  "id": "real-124",
+  "source": "real",
+  "time": "2026-11-16T03:30:07Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "env sweep: pid N read 5 env files in 10s (last by pid N (/usr/bin/tar, user root))",
+  "context": {
+   "exe": "/usr/bin/tar",
+   "cmdline": "[\"tar\", \"-C\", \"/\", \"-czf\", \"-\", \"root/vault\", \"etc/name3\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "nightly-backup.service",
+   "path": "/etc/app/secrets/secret30.env"
+  },
+  "truth": "noise",
+  "truth_reason": "the nightly encrypted backup reads the secrets folder"
+ },
+ {
+  "id": "real-125",
+  "source": "real",
+  "time": "2026-11-16T08:56:29Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc16.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc16.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-126",
+  "source": "real",
+  "time": "2026-11-16T08:56:29Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc16.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc16.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-127",
+  "source": "real",
+  "time": "2026-11-16T08:56:29Z",
+  "rule": "process",
+  "severity": "critical",
+  "summary": "app site2 (app-svc16.service) ran dash: sh -c git rev-parse --short HEAD",
+  "context": {
+   "exe": "/usr/bin/dash",
+   "cmdline": "[\"sh\", \"-c\", \"git\", \"rev-parse\", \"--short\", \"HEAD\"]",
+   "user": "app-svc16",
+   "uid": "965",
+   "unit": "app-svc16.service",
+   "app": "site2",
+   "parent": "next-server (v16.4.6)"
+  },
+  "truth": "noise",
+  "truth_reason": "the web app asks git for its version at startup"
+ },
+ {
+  "id": "real-128",
+  "source": "real",
+  "time": "2026-11-16T09:01:44Z",
+  "rule": "process",
+  "severity": "critical",
+  "summary": "app site2 (app-svc16.service) ran dash: sh -c git rev-parse --short HEAD",
+  "context": {
+   "exe": "/usr/bin/dash",
+   "cmdline": "[\"sh\", \"-c\", \"git\", \"rev-parse\", \"--short\", \"HEAD\"]",
+   "user": "app-svc16",
+   "uid": "965",
+   "unit": "app-svc16.service",
+   "app": "site2",
+   "parent": "next-server (v16.4.6)"
+  },
+  "truth": "noise",
+  "truth_reason": "the web app asks git for its version at startup"
+ },
+ {
+  "id": "real-129",
+  "source": "real",
+  "time": "2026-11-16T11:29:46Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new sudoers line in /etc/sudoers.d/ci-deploy: deploy ALL=(root) NOPASSWD: /usr/bin/systemctl restart app-svc26.service - by install (/usr/lib/cargo/bin/coreutils/install) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "deploy tool allowed to restart an app"
+ },
+ {
+  "id": "real-130",
+  "source": "real",
+  "time": "2026-11-16T11:29:46Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new sudoers line in /etc/sudoers.d/ci-deploy: deploy ALL=(root) NOPASSWD: /usr/bin/systemctl start app-svc27.service - by install (/usr/lib/cargo/bin/coreutils/install) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "deploy tool allowed to restart an app"
+ },
+ {
+  "id": "real-131",
+  "source": "real",
+  "time": "2026-11-16T11:29:47Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc27.service created, written, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc27.service",
+   "ops": "[\"created\", \"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-132",
+  "source": "real",
+  "time": "2026-11-16T12:28:23Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new user app-svc28 (uid 956, shell /usr/sbin/nologin) - by usermod (/usr/sbin/usermod) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a new web app (its service user)"
+ },
+ {
+  "id": "real-133",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group.409839 created, written, deleted",
+  "context": {
+   "path": "/etc/group.409839",
+   "ops": "[\"created\", \"written\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-134",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow.409839 created, written, deleted",
+  "context": {
+   "path": "/etc/shadow.409839",
+   "ops": "[\"created\", \"written\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-135",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow written, moved in",
+  "context": {
+   "path": "/etc/gshadow",
+   "ops": "[\"written\", \"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-136",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group written, moved in",
+  "context": {
+   "path": "/etc/group",
+   "ops": "[\"written\", \"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-137",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd written, moved in",
+  "context": {
+   "path": "/etc/passwd",
+   "ops": "[\"written\", \"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-138",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd+ created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/passwd+",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-139",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow.409839 created, written, deleted",
+  "context": {
+   "path": "/etc/gshadow.409839",
+   "ops": "[\"created\", \"written\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-140",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow written, moved in",
+  "context": {
+   "path": "/etc/shadow",
+   "ops": "[\"written\", \"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-141",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd.409839 created, written, deleted",
+  "context": {
+   "path": "/etc/passwd.409839",
+   "ops": "[\"created\", \"written\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-142",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd- written, attributes changed",
+  "context": {
+   "path": "/etc/passwd-",
+   "ops": "[\"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-143",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow+ created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/gshadow+",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-144",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow- written, attributes changed",
+  "context": {
+   "path": "/etc/shadow-",
+   "ops": "[\"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-145",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow- written, attributes changed",
+  "context": {
+   "path": "/etc/gshadow-",
+   "ops": "[\"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-146",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow.lock created, deleted",
+  "context": {
+   "path": "/etc/shadow.lock",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-147",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow.lock created, deleted",
+  "context": {
+   "path": "/etc/gshadow.lock",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-148",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow.409853 created, written, deleted",
+  "context": {
+   "path": "/etc/gshadow.409853",
+   "ops": "[\"created\", \"written\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-149",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group.409853 created, written, deleted",
+  "context": {
+   "path": "/etc/group.409853",
+   "ops": "[\"created\", \"written\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-150",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group.lock created, deleted",
+  "context": {
+   "path": "/etc/group.lock",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-151",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd.409853 created, written, deleted",
+  "context": {
+   "path": "/etc/passwd.409853",
+   "ops": "[\"created\", \"written\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-152",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group+ created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/group+",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-153",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group- written, attributes changed",
+  "context": {
+   "path": "/etc/group-",
+   "ops": "[\"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-154",
+  "source": "real",
+  "time": "2026-11-16T12:28:24Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow+ created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/shadow+",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-155",
+  "source": "real",
+  "time": "2026-11-16T12:28:25Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd.lock created, deleted",
+  "context": {
+   "path": "/etc/passwd.lock",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-156",
+  "source": "real",
+  "time": "2026-11-16T12:28:45Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc28.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc28.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-157",
+  "source": "real",
+  "time": "2026-11-16T12:28:45Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc28.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc28.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-158",
+  "source": "real",
+  "time": "2026-11-16T12:29:17Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-enabled/site14 created, deleted",
+  "context": {
+   "path": "/etc/nginx/sites-enabled/site14",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-159",
+  "source": "real",
+  "time": "2026-11-16T12:29:17Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site14 created, written, attributes changed",
+  "context": {
+   "path": "/etc/nginx/sites-available/site14",
+   "ops": "[\"created\", \"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-160",
+  "source": "real",
+  "time": "2026-11-16T12:34:17Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-enabled/site14 created (latest of 1 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/nginx/sites-enabled/site14",
+   "ops": "[\"created\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-161",
+  "source": "real",
+  "time": "2026-11-16T12:34:17Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site14 created, written, deleted, attributes changed (latest of 2 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/nginx/sites-available/site14",
+   "ops": "[\"created\", \"written\", \"deleted\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-162",
+  "source": "real",
+  "time": "2026-11-16T13:21:20Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new systemd timer sentinel-feeds.timer (/etc/systemd/system)",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a scheduled job"
+ },
+ {
+  "id": "real-163",
+  "source": "real",
+  "time": "2026-11-16T16:51:34Z",
+  "rule": "process",
+  "severity": "critical",
+  "summary": "app site2 (app-svc16.service) ran dash: sh -c git rev-parse --short HEAD",
+  "context": {
+   "exe": "/usr/bin/dash",
+   "cmdline": "[\"sh\", \"-c\", \"git\", \"rev-parse\", \"--short\", \"HEAD\"]",
+   "user": "app-svc16",
+   "uid": "965",
+   "unit": "app-svc16.service",
+   "app": "site2",
+   "parent": "next-server (v16.4.6)"
+  },
+  "truth": "noise",
+  "truth_reason": "the web app asks git for its version at startup"
+ },
+ {
+  "id": "real-164",
+  "source": "real",
+  "time": "2026-11-17T03:30:07Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "secrets file /etc/app/secrets/secret32.env read by pid N (/usr/bin/tar, user root)",
+  "context": {
+   "exe": "/usr/bin/tar",
+   "cmdline": "[\"tar\", \"-C\", \"/\", \"-czf\", \"-\", \"root/vault\", \"etc/name3\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "nightly-backup.service",
+   "path": "/etc/app/secrets/secret32.env"
+  },
+  "truth": "noise",
+  "truth_reason": "the nightly encrypted backup reads the secrets folder"
+ },
+ {
+  "id": "real-165",
+  "source": "real",
+  "time": "2026-11-17T03:30:07Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "env sweep: pid N read 5 env files in 10s (last by pid N (/usr/bin/tar, user root))",
+  "context": {
+   "exe": "/usr/bin/tar",
+   "cmdline": "[\"tar\", \"-C\", \"/\", \"-czf\", \"-\", \"root/vault\", \"etc/name3\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "nightly-backup.service",
+   "path": "/etc/app/secrets/secret31.env"
+  },
+  "truth": "noise",
+  "truth_reason": "the nightly encrypted backup reads the secrets folder"
+ },
+ {
+  "id": "real-166",
+  "source": "real",
+  "time": "2026-11-17T06:06:23Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site15 created, written, attributes changed",
+  "context": {
+   "path": "/etc/nginx/sites-available/site15",
+   "ops": "[\"created\", \"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-167",
+  "source": "real",
+  "time": "2026-11-17T06:06:23Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site16 created, written, deleted, attributes changed",
+  "context": {
+   "path": "/etc/nginx/sites-available/site16",
+   "ops": "[\"created\", \"written\", \"deleted\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-168",
+  "source": "real",
+  "time": "2026-11-17T06:11:23Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site15 deleted (latest of 1 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/nginx/sites-available/site15",
+   "ops": "[\"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-169",
+  "source": "real",
+  "time": "2026-11-17T06:44:44Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new systemd timer name4.timer (/etc/systemd/system) - near a write by install (/usr/lib/cargo/bin/coreutils/install) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a scheduled job"
+ },
+ {
+  "id": "real-170",
+  "source": "real",
+  "time": "2026-11-17T06:52:41Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new systemd timer name5.timer (/run/systemd/transient)",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a scheduled job"
+ },
+ {
+  "id": "real-171",
+  "source": "real",
+  "time": "2026-11-17T06:52:41Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new systemd timer name6.timer (/run/systemd/transient)",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a scheduled job"
+ },
+ {
+  "id": "real-172",
+  "source": "real",
+  "time": "2026-11-17T06:54:41Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new systemd timer name7.timer (/run/systemd/transient)",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a scheduled job"
+ },
+ {
+  "id": "real-173",
+  "source": "real",
+  "time": "2026-11-17T06:54:41Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new systemd timer name8.timer (/run/systemd/transient)",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a scheduled job"
+ },
+ {
+  "id": "real-174",
+  "source": "real",
+  "time": "2026-11-17T06:56:41Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new systemd timer name9.timer (/etc/systemd/system)",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a scheduled job"
+ },
+ {
+  "id": "real-175",
+  "source": "real",
+  "time": "2026-11-17T09:34:49Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new systemd timer geoip-refresh.timer (/etc/systemd/system)",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a scheduled job"
+ },
+ {
+  "id": "real-176",
+  "source": "real",
+  "time": "2026-11-17T15:13:10Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group written, moved in",
+  "context": {
+   "path": "/etc/group",
+   "ops": "[\"written\", \"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-177",
+  "source": "real",
+  "time": "2026-11-17T15:13:10Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd written",
+  "context": {
+   "path": "/etc/passwd",
+   "ops": "[\"written\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-178",
+  "source": "real",
+  "time": "2026-11-17T15:13:10Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow written",
+  "context": {
+   "path": "/etc/shadow",
+   "ops": "[\"written\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-179",
+  "source": "real",
+  "time": "2026-11-17T15:13:10Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow written, moved in",
+  "context": {
+   "path": "/etc/gshadow",
+   "ops": "[\"written\", \"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-180",
+  "source": "real",
+  "time": "2026-11-17T15:13:11Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group.lock created, deleted",
+  "context": {
+   "path": "/etc/group.lock",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-181",
+  "source": "real",
+  "time": "2026-11-17T15:13:11Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group+ created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/group+",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-182",
+  "source": "real",
+  "time": "2026-11-17T15:13:11Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow.lock created, deleted",
+  "context": {
+   "path": "/etc/gshadow.lock",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-183",
+  "source": "real",
+  "time": "2026-11-17T15:13:11Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/group- written, attributes changed",
+  "context": {
+   "path": "/etc/group-",
+   "ops": "[\"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-184",
+  "source": "real",
+  "time": "2026-11-17T15:13:11Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow+ created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/gshadow+",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-185",
+  "source": "real",
+  "time": "2026-11-17T15:13:11Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow.lock created, deleted",
+  "context": {
+   "path": "/etc/shadow.lock",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-186",
+  "source": "real",
+  "time": "2026-11-17T15:13:11Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd.lock created, deleted",
+  "context": {
+   "path": "/etc/passwd.lock",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-187",
+  "source": "real",
+  "time": "2026-11-17T15:13:11Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/gshadow- written, attributes changed",
+  "context": {
+   "path": "/etc/gshadow-",
+   "ops": "[\"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-188",
+  "source": "real",
+  "time": "2026-11-18T06:43:51Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd written, moved in",
+  "context": {
+   "path": "/etc/passwd",
+   "ops": "[\"written\", \"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-189",
+  "source": "real",
+  "time": "2026-11-18T06:43:51Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow written, moved in",
+  "context": {
+   "path": "/etc/shadow",
+   "ops": "[\"written\", \"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-190",
+  "source": "real",
+  "time": "2026-11-18T06:43:51Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "admin added to privileged group sudo (member list) - by useradd (/usr/sbin/useradd) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "the administrator's own account set up"
+ },
+ {
+  "id": "real-191",
+  "source": "real",
+  "time": "2026-11-18T06:43:51Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow- written, attributes changed",
+  "context": {
+   "path": "/etc/shadow-",
+   "ops": "[\"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-192",
+  "source": "real",
+  "time": "2026-11-18T06:43:51Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow+ created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/shadow+",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-193",
+  "source": "real",
+  "time": "2026-11-18T06:43:51Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd- written, attributes changed",
+  "context": {
+   "path": "/etc/passwd-",
+   "ops": "[\"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-194",
+  "source": "real",
+  "time": "2026-11-18T06:43:51Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd+ created, written, moved away, attributes changed",
+  "context": {
+   "path": "/etc/passwd+",
+   "ops": "[\"created\", \"written\", \"moved away\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-195",
+  "source": "real",
+  "time": "2026-11-18T06:48:51Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow moved in (latest of 1 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/shadow",
+   "ops": "[\"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-196",
+  "source": "real",
+  "time": "2026-11-19T08:33:04Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new user app-svc29 (uid 955, shell /usr/sbin/nologin) - by usermod (/usr/sbin/usermod) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a new web app (its service user)"
+ },
+ {
+  "id": "real-197",
+  "source": "real",
+  "time": "2026-11-19T08:33:04Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new user app-svc30 (uid 954, shell /usr/sbin/nologin) - by usermod (/usr/sbin/usermod) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a new web app (its service user)"
+ },
+ {
+  "id": "real-198",
+  "source": "real",
+  "time": "2026-11-19T08:35:39Z",
+  "rule": "process",
+  "severity": "critical",
+  "summary": "user root runs from a drop dir: /var/tmp/cidtest/site1/node_modules/@prisma/engines/schema-engine-debian-openssl-3.0.x: schema-engine-d --version",
+  "context": {
+   "exe": "/var/tmp/cidtest/site1/node_modules/@prisma/engines/schema-engine-debian-openssl-3.0.x",
+   "cmdline": "[\"schema-engine-d\", \"--version\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-2854.scope",
+   "parent": "/opt/node/24.21.0/bin/node node_modules/prisma/build/index.js migrate deploy"
+  },
+  "truth": "noise",
+  "truth_reason": "a CI test build ran from a temp folder"
+ },
+ {
+  "id": "real-199",
+  "source": "real",
+  "time": "2026-11-19T08:35:39Z",
+  "rule": "process",
+  "severity": "critical",
+  "summary": "user root runs from a drop dir: /var/tmp/cidtest/site1/node_modules/@prisma/engines/schema-engine-debian-openssl-3.0.x: /var/tmp/cidtest/site1/node_modules/@prisma/engines/schema-engine-debian-openssl-3.0.x --datamodels /var/tmp/cidtest/site1/prisma/schema/auth.prisma --datamodels /var/tmp/cidtest/site1/...",
+  "context": {
+   "exe": "/var/tmp/cidtest/site1/node_modules/@prisma/engines/schema-engine-debian-openssl-3.0.x",
+   "cmdline": "[\"/var/tmp/cidtest/site1/node_modules/@prisma/engines/schema-engine-debian-openssl-3.0.x\", \"--datamodels\", \"/var/tmp/cidtest/site1/prisma/schema/auth.prisma\", \"--datamodels\", \"/var/tmp/cidtest/site1/prisma/schema/base.prisma\", \"--datamodels\", \"/var/tmp/cidtest/site1/prisma/schema/billing.prisma\", \"--datamodels\", \"/var/tmp/cidtest/site1/prisma/schema/credits.prisma\", \"--datamodels\", \"/var/tmp/cidtest/site1/prisma/schema/design.prisma\", \"--datamodels\", \"/var/tmp/cidtest/site1/prisma/schema/push.prisma\", \"--datamodels\", \"/var/tmp/cidtest/site1/prisma/schema/setting.prisma\", \"--datamodels\", \"/var/tmp/cidtest/site1/prisma/schema/usage.prisma\", \"--datamodels\", \"/var/tmp/cidtest/site1/prisma/schema/user.prisma\", \"--datasource\", \"{\\\"url\\\":\\\"postgresql://site1:<hash>@127.0.0.1:5432/site1_prod?schema=public\\\"}\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-2854.scope",
+   "parent": "/opt/node/24.21.0/bin/node node_modules/prisma/build/index.js migrate deploy"
+  },
+  "truth": "noise",
+  "truth_reason": "a CI test build ran from a temp folder"
+ },
+ {
+  "id": "real-200",
+  "source": "real",
+  "time": "2026-11-19T08:35:52Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc29.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc29.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-201",
+  "source": "real",
+  "time": "2026-11-19T08:35:52Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc29.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc29.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-202",
+  "source": "real",
+  "time": "2026-11-19T08:35:53Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc30.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc30.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-203",
+  "source": "real",
+  "time": "2026-11-19T08:35:53Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc30.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc30.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-204",
+  "source": "real",
+  "time": "2026-11-19T08:36:09Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new sudoers line in /etc/sudoers.d/ci-deploy: deploy ALL=(root) NOPASSWD: /usr/bin/systemctl restart app-svc29.service - by install (/usr/lib/cargo/bin/coreutils/install) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "deploy tool allowed to restart an app"
+ },
+ {
+  "id": "real-205",
+  "source": "real",
+  "time": "2026-11-19T08:36:49Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site1 created, written, attributes changed",
+  "context": {
+   "path": "/etc/nginx/sites-available/site1",
+   "ops": "[\"created\", \"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-206",
+  "source": "real",
+  "time": "2026-11-19T08:36:49Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-enabled/site1 created",
+  "context": {
+   "path": "/etc/nginx/sites-enabled/site1",
+   "ops": "[\"created\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-207",
+  "source": "real",
+  "time": "2026-11-19T08:40:39Z",
+  "rule": "process",
+  "severity": "critical",
+  "summary": "app site1 (app-svc29.service) ran dash: sh -c git rev-parse --short HEAD",
+  "context": {
+   "exe": "/usr/bin/dash",
+   "cmdline": "[\"sh\", \"-c\", \"git\", \"rev-parse\", \"--short\", \"HEAD\"]",
+   "user": "app-svc29",
+   "uid": "955",
+   "unit": "app-svc29.service",
+   "app": "site1",
+   "parent": "next-server (v16.4.6)"
+  },
+  "truth": "noise",
+  "truth_reason": "the web app asks git for its version at startup"
+ },
+ {
+  "id": "real-208",
+  "source": "real",
+  "time": "2026-11-19T08:41:49Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site1 created, written, deleted, attributes changed (latest of 1 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/nginx/sites-available/site1",
+   "ops": "[\"created\", \"written\", \"deleted\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-209",
+  "source": "real",
+  "time": "2026-11-19T08:53:47Z",
+  "rule": "process",
+  "severity": "critical",
+  "summary": "app site1 (app-svc29.service) ran dash: sh -c git rev-parse --short HEAD",
+  "context": {
+   "exe": "/usr/bin/dash",
+   "cmdline": "[\"sh\", \"-c\", \"git\", \"rev-parse\", \"--short\", \"HEAD\"]",
+   "user": "app-svc29",
+   "uid": "955",
+   "unit": "app-svc29.service",
+   "app": "site1",
+   "parent": "next-server (v16.4.6)"
+  },
+  "truth": "noise",
+  "truth_reason": "the web app asks git for its version at startup"
+ },
+ {
+  "id": "real-210",
+  "source": "real",
+  "time": "2026-11-19T09:27:54Z",
+  "rule": "process",
+  "severity": "critical",
+  "summary": "app site1 (app-svc29.service) ran dash: sh -c git rev-parse --short HEAD",
+  "context": {
+   "exe": "/usr/bin/dash",
+   "cmdline": "[\"sh\", \"-c\", \"git\", \"rev-parse\", \"--short\", \"HEAD\"]",
+   "user": "app-svc29",
+   "uid": "955",
+   "unit": "app-svc29.service",
+   "app": "site1",
+   "parent": "next-server (v16.4.6)"
+  },
+  "truth": "noise",
+  "truth_reason": "the web app asks git for its version at startup"
+ },
+ {
+  "id": "real-211",
+  "source": "real",
+  "time": "2026-11-19T09:29:28Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/passwd written",
+  "context": {
+   "path": "/etc/passwd",
+   "ops": "[\"written\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-212",
+  "source": "real",
+  "time": "2026-11-19T09:29:28Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/shadow written",
+  "context": {
+   "path": "/etc/shadow",
+   "ops": "[\"written\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an account was added (app install)"
+ },
+ {
+  "id": "real-213",
+  "source": "real",
+  "time": "2026-11-20T12:08:24Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new user app-svc31 (uid 953, shell /usr/sbin/nologin) - by usermod (/usr/sbin/usermod) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a new web app (its service user)"
+ },
+ {
+  "id": "real-214",
+  "source": "real",
+  "time": "2026-11-20T12:08:24Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new user app-svc32 (uid 952, shell /usr/sbin/nologin) - by usermod (/usr/sbin/usermod) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a new web app (its service user)"
+ },
+ {
+  "id": "real-215",
+  "source": "real",
+  "time": "2026-11-20T12:09:17Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc33.service created, written, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc33.service",
+   "ops": "[\"created\", \"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-216",
+  "source": "real",
+  "time": "2026-11-20T12:09:17Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc31.service created, written, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc31.service",
+   "ops": "[\"created\", \"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-217",
+  "source": "real",
+  "time": "2026-11-20T12:09:17Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc32.service created, written, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc32.service",
+   "ops": "[\"created\", \"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-218",
+  "source": "real",
+  "time": "2026-11-20T12:09:39Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site17 created, written, attributes changed",
+  "context": {
+   "path": "/etc/nginx/sites-available/site17",
+   "ops": "[\"created\", \"written\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-219",
+  "source": "real",
+  "time": "2026-11-20T12:09:39Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-enabled/site17 created",
+  "context": {
+   "path": "/etc/nginx/sites-enabled/site17",
+   "ops": "[\"created\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-220",
+  "source": "real",
+  "time": "2026-11-20T12:14:40Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site17 created, written, deleted, attributes changed (latest of 1 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/nginx/sites-available/site17",
+   "ops": "[\"created\", \"written\", \"deleted\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-221",
+  "source": "real",
+  "time": "2026-11-20T14:13:16Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site17 written",
+  "context": {
+   "path": "/etc/nginx/sites-available/site17",
+   "ops": "[\"written\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-222",
+  "source": "real",
+  "time": "2026-11-20T23:17:56Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new user app-svc34 (uid 950, shell /usr/sbin/nologin) - by usermod (/usr/sbin/usermod) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a new web app (its service user)"
+ },
+ {
+  "id": "real-223",
+  "source": "real",
+  "time": "2026-11-20T23:17:56Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new user app-svc35 (uid 949, shell /usr/sbin/nologin) - by usermod (/usr/sbin/usermod) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a new web app (its service user)"
+ },
+ {
+  "id": "real-224",
+  "source": "real",
+  "time": "2026-11-20T23:18:52Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc34.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc34.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-225",
+  "source": "real",
+  "time": "2026-11-20T23:18:52Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc34.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc34.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-226",
+  "source": "real",
+  "time": "2026-11-20T23:18:54Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc35.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc35.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-227",
+  "source": "real",
+  "time": "2026-11-20T23:18:54Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc35.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc35.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-228",
+  "source": "real",
+  "time": "2026-11-20T23:19:41Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc36.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc36.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-229",
+  "source": "real",
+  "time": "2026-11-20T23:19:41Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc36.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc36.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-230",
+  "source": "real",
+  "time": "2026-11-20T23:21:47Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site18 created, written",
+  "context": {
+   "path": "/etc/nginx/sites-available/site18",
+   "ops": "[\"created\", \"written\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-231",
+  "source": "real",
+  "time": "2026-11-20T23:21:47Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-enabled/site18 created",
+  "context": {
+   "path": "/etc/nginx/sites-enabled/site18",
+   "ops": "[\"created\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-232",
+  "source": "real",
+  "time": "2026-11-20T23:23:54Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc35.service moved in, attributes changed (latest of 1 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/systemd/system/app-svc35.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-233",
+  "source": "real",
+  "time": "2026-11-20T23:23:54Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc35.service.tmp created, written, moved away (latest of 1 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/systemd/system/app-svc35.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-234",
+  "source": "real",
+  "time": "2026-11-20T23:26:47Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site18 created, written, deleted, attributes changed (latest of 1 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/nginx/sites-available/site18",
+   "ops": "[\"created\", \"written\", \"deleted\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-235",
+  "source": "real",
+  "time": "2026-11-22T12:18:06Z",
+  "rule": "accounts",
+  "severity": "warn",
+  "summary": "new user app-svc37 (uid 948, shell /usr/sbin/nologin) - by usermod (/usr/sbin/usermod) uid=0 auid=0",
+  "context": {},
+  "truth": "noise",
+  "truth_reason": "an administrator installed a new web app (its service user)"
+ },
+ {
+  "id": "real-236",
+  "source": "real",
+  "time": "2026-11-22T12:21:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc37.service.tmp created, written, moved away",
+  "context": {
+   "path": "/etc/systemd/system/app-svc37.service.tmp",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-237",
+  "source": "real",
+  "time": "2026-11-22T12:21:48Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc37.service moved in, attributes changed",
+  "context": {
+   "path": "/etc/systemd/system/app-svc37.service",
+   "ops": "[\"moved in\", \"attributes changed\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-238",
+  "source": "real",
+  "time": "2026-11-22T12:21:51Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-enabled/site3 created",
+  "context": {
+   "path": "/etc/nginx/sites-enabled/site3",
+   "ops": "[\"created\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-239",
+  "source": "real",
+  "time": "2026-11-22T12:21:51Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site3 moved in",
+  "context": {
+   "path": "/etc/nginx/sites-available/site3",
+   "ops": "[\"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-240",
+  "source": "real",
+  "time": "2026-11-22T12:21:51Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site19 created, written, moved away",
+  "context": {
+   "path": "/etc/nginx/sites-available/site19",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-241",
+  "source": "real",
+  "time": "2026-11-22T12:26:52Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site3 moved in (latest of 1 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/nginx/sites-available/site3",
+   "ops": "[\"moved in\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-242",
+  "source": "real",
+  "time": "2026-11-22T12:26:52Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-enabled/site3 created, deleted (latest of 1 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/nginx/sites-enabled/site3",
+   "ops": "[\"created\", \"deleted\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-243",
+  "source": "real",
+  "time": "2026-11-22T12:26:52Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/nginx/sites-available/site19 created, written, moved away (latest of 1 repeats held by the cooldown)",
+  "context": {
+   "path": "/etc/nginx/sites-available/site19",
+   "ops": "[\"created\", \"written\", \"moved away\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator added a website config"
+ },
+ {
+  "id": "real-244",
+  "source": "real",
+  "time": "2026-11-22T12:33:12Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc37.service.d/standalone.conf created, written",
+  "context": {
+   "path": "/etc/systemd/system/app-svc37.service.d/standalone.conf",
+   "ops": "[\"created\", \"written\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-245",
+  "source": "real",
+  "time": "2026-11-22T12:33:12Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/systemd/system/app-svc37.service.d created",
+  "context": {
+   "path": "/etc/systemd/system/app-svc37.service.d",
+   "ops": "[\"created\"]"
+  },
+  "truth": "noise",
+  "truth_reason": "an administrator installed an app service"
+ },
+ {
+  "id": "real-246",
+  "source": "real",
+  "time": "2026-11-23T09:11:53Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "secrets file /etc/app/secrets/secret32.env read by pid N (/usr/lib/cargo/bin/coreutils/cat, user root)",
+  "context": {
+   "exe": "/usr/lib/cargo/bin/coreutils/cat",
+   "cmdline": "[\"cat\", \"/etc/app/secrets/secret32.env\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-3896.scope",
+   "path": "/etc/app/secrets/secret32.env"
+  },
+  "truth": "danger",
+  "truth_reason": "root read the watched secrets file"
+ },
+ {
+  "id": "real-247",
+  "source": "real",
+  "time": "2026-11-23T09:16:19Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "secrets file /etc/app/secrets/secret32.env read by pid N (/usr/bin/tar, user root)",
+  "context": {
+   "exe": "/usr/bin/tar",
+   "cmdline": "[\"tar\", \"-C\", \"/\", \"-czf\", \"/root/zs-test.tgz\", \"etc/name3/env\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-3904.scope",
+   "path": "/etc/app/secrets/secret32.env"
+  },
+  "truth": "danger",
+  "truth_reason": "a process copied the whole secrets folder"
+ },
+ {
+  "id": "real-248",
+  "source": "real",
+  "time": "2026-11-23T09:16:19Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "env sweep: pid N read 5 env files in 10s (last by pid N (/usr/bin/tar, user root))",
+  "context": {
+   "exe": "/usr/bin/tar",
+   "cmdline": "[\"tar\", \"-C\", \"/\", \"-czf\", \"/root/zs-test.tgz\", \"etc/name3/env\"]",
+   "user": "root",
+   "uid": "0",
+   "unit": "session-3904.scope",
+   "path": "/etc/app/secrets/secret31.env"
+  },
+  "truth": "danger",
+  "truth_reason": "a process copied the whole secrets folder"
+ },
+ {
+  "id": "real-249",
+  "source": "real",
+  "time": "2026-11-23T09:56:28Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "new authorized_keys line for admin in /home/admin/.ssh/authorized_keys2: ssh-ed25519 <key> - by chmod (/usr/lib/cargo/bin/coreutils/chmod) uid=0 auid=0",
+  "context": {},
+  "truth": "danger",
+  "truth_reason": "a new login key appeared for a human account"
+ },
+ {
+  "id": "real-250",
+  "source": "real",
+  "time": "2026-11-23T09:56:29Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/home/admin/.ssh/authorized_keys2 created, written, attributes changed",
+  "context": {
+   "path": "/home/admin/.ssh/authorized_keys2",
+   "ops": "[\"created\", \"written\", \"attributes changed\"]"
+  },
+  "truth": "danger",
+  "truth_reason": "a new login key appeared for a human account"
+ },
+ {
+  "id": "real-251",
+  "source": "real",
+  "time": "2026-11-23T10:02:21Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "new authorized_keys line for admin in /home/admin/.ssh/authorized_keys2: ssh-ed25519 <key> - by chmod (/usr/lib/cargo/bin/coreutils/chmod) uid=0 auid=0",
+  "context": {},
+  "truth": "danger",
+  "truth_reason": "a new login key appeared for a human account"
+ },
+ {
+  "id": "real-252",
+  "source": "real",
+  "time": "2026-11-23T10:02:22Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/home/admin/.ssh/authorized_keys2 created, written, attributes changed",
+  "context": {
+   "path": "/home/admin/.ssh/authorized_keys2",
+   "ops": "[\"created\", \"written\", \"attributes changed\"]"
+  },
+  "truth": "danger",
+  "truth_reason": "a new login key appeared for a human account"
+ },
+ {
+  "id": "replay-01",
+  "source": "replay",
+  "time": "2026-11-12T19:40:02Z",
+  "rule": "process",
+  "severity": "critical",
+  "summary": "app site2 (app-svc2.service) ran dash: sh /tmp/.a7f81535.sh",
+  "context": {
+   "exe": "/usr/bin/dash",
+   "cmdline": "sh /tmp/.a7f81535.sh",
+   "user": "app-svc2",
+   "parent": "next-server (v15.1.0)"
+  },
+  "truth": "danger",
+  "truth_reason": "a web app ran a hidden script from /tmp - the first step of the Nov 2026 break-in"
+ },
+ {
+  "id": "replay-02",
+  "source": "replay",
+  "time": "2026-11-12T19:40:05Z",
+  "rule": "process",
+  "severity": "critical",
+  "summary": "app site2 (app-svc2.service) ran wget: wget -q -O /tmp/x.tar.gz https://github.com/xmrig/xmrig/releases/download/v6.22.2/xmrig-6.22.2-linux-static-x64.tar.gz",
+  "context": {
+   "exe": "/usr/bin/wget",
+   "user": "app-svc2",
+   "parent": "sh /tmp/.a7f81535.sh"
+  },
+  "truth": "danger",
+  "truth_reason": "a web app downloading a crypto miner"
+ },
+ {
+  "id": "replay-03",
+  "source": "replay",
+  "time": "2026-11-12T19:41:10Z",
+  "rule": "miner",
+  "severity": "critical",
+  "summary": "pid N (xmrig, app-svc2): 3.1 cores for 75s; exe /home/app-svc2/.cache/.sys/xmrig",
+  "context": {
+   "exe": "/home/app-svc2/.cache/.sys/xmrig",
+   "user": "app-svc2"
+  },
+  "truth": "danger",
+  "truth_reason": "a crypto miner using most of the CPU, hidden in a dot-folder"
+ },
+ {
+  "id": "replay-04",
+  "source": "replay",
+  "time": "2026-11-12T19:41:30Z",
+  "rule": "outbound",
+  "severity": "critical",
+  "summary": "pid N (xmrig, app-svc2) connected to 198.51.100.66:10128 - mining pool port",
+  "context": {
+   "exe": "/home/app-svc2/.cache/.sys/xmrig",
+   "user": "app-svc2"
+  },
+  "truth": "danger",
+  "truth_reason": "a connection to a known mining-pool port"
+ },
+ {
+  "id": "replay-05",
+  "source": "replay",
+  "time": "2026-11-12T19:43:00Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "new user sysadm2 (uid 0, shell /bin/bash) - by useradd (/usr/sbin/useradd) uid=0 auid=unset",
+  "context": {
+   "user": "sysadm2"
+  },
+  "truth": "danger",
+  "truth_reason": "a second account with uid 0 is a hidden root account"
+ },
+ {
+  "id": "replay-06",
+  "source": "replay",
+  "time": "2026-11-12T19:43:02Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "new sudoers line in /etc/sudoers.d/99-sysadm2: sysadm2 ALL=(ALL) NOPASSWD:ALL",
+  "context": {
+   "path": "/etc/sudoers.d/99-sysadm2"
+  },
+  "truth": "danger",
+  "truth_reason": "full passwordless admin rights for an unknown account"
+ },
+ {
+  "id": "replay-07",
+  "source": "replay",
+  "time": "2026-11-12T19:44:20Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "new authorized_keys line for root in /root/.ssh/authorized_keys: ssh-rsa <key> root@kali",
+  "context": {
+   "path": "/root/.ssh/authorized_keys"
+  },
+  "truth": "danger",
+  "truth_reason": "an outsider's login key added to root (comment root@kali)"
+ },
+ {
+  "id": "replay-08",
+  "source": "replay",
+  "time": "2026-11-12T19:45:00Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "new systemd timer sys-health.timer (/etc/systemd/system)",
+  "context": {
+   "path": "/etc/systemd/system/sys-health.timer"
+  },
+  "truth": "danger",
+  "truth_reason": "a timer with an innocent name that restarts the miner (break-in persistence)"
+ },
+ {
+  "id": "replay-09",
+  "source": "replay",
+  "time": "2026-11-12T19:45:40Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "new cron line in /var/spool/cron/crontabs/root: */10 * * * * docker start amco_a7f81535",
+  "context": {
+   "path": "/var/spool/cron/crontabs/root"
+  },
+  "truth": "danger",
+  "truth_reason": "root cron restarting an unknown container every 10 minutes"
+ },
+ {
+  "id": "replay-10",
+  "source": "replay",
+  "time": "2026-11-12T19:46:10Z",
+  "rule": "accounts",
+  "severity": "critical",
+  "summary": "new container amco_a7f81535 (image negoroo/amco, privileged=true)",
+  "context": {},
+  "truth": "danger",
+  "truth_reason": "a privileged container from an unknown image"
+ },
+ {
+  "id": "replay-11",
+  "source": "replay",
+  "time": "2026-11-12T19:47:00Z",
+  "rule": "secrets",
+  "severity": "critical",
+  "summary": "env sweep: pid N read 14 env files in 3s (last by pid N (/usr/bin/cat, user app-svc2))",
+  "context": {
+   "exe": "/usr/bin/cat",
+   "user": "app-svc2"
+  },
+  "truth": "danger",
+  "truth_reason": "a web app reading every secrets file - credential theft"
+ },
+ {
+  "id": "replay-12",
+  "source": "replay",
+  "time": "2026-11-12T19:47:30Z",
+  "rule": "outbound",
+  "severity": "critical",
+  "summary": "pid N (curl, app-svc2) connected to 198.51.100.66:443 - known attacker address",
+  "context": {
+   "exe": "/usr/bin/curl",
+   "user": "app-svc2"
+  },
+  "truth": "danger",
+  "truth_reason": "a connection to the attacker's command server"
+ },
+ {
+  "id": "replay-13",
+  "source": "replay",
+  "time": "2026-11-12T19:48:00Z",
+  "rule": "process",
+  "severity": "critical",
+  "summary": "user root runs from a drop dir: /dev/shm/.x/kswapd0 (deleted from disk)",
+  "context": {
+   "exe": "/dev/shm/.x/kswapd0 (deleted)",
+   "user": "root"
+  },
+  "truth": "danger",
+  "truth_reason": "a program named like a kernel thread, run from memory and deleted from disk"
+ },
+ {
+  "id": "replay-14",
+  "source": "replay",
+  "time": "2026-11-12T19:49:00Z",
+  "rule": "files",
+  "severity": "warn",
+  "summary": "/etc/ld.so.preload created, written",
+  "context": {
+   "path": "/etc/ld.so.preload"
+  },
+  "truth": "danger",
+  "truth_reason": "ld.so.preload loads a library into every program - a rootkit trick"
+ }
+]

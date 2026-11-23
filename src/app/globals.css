@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* Night Watch (docs/design/DESIGN.md): pure black ground, raised surfaces, hairlines. */
+@theme {
+  --color-ground: #000000;
+  --color-surface: #0b0d12;
+  --color-surface-2: #12151c;
+  --color-line: #1a1f29;
+  --color-line-strong: #2a3140;
+  --color-ink: #e3e8f2;
+  --color-muted: #7d8aa6;
+  --color-danger: #ff4d3d;
+  --color-check: #f5b83d;
+  --color-device: #7cc4ff;
+  --color-noise: #6b7896;
+  --color-noise-dim: #4f5d78;
+
+  --font-mono: var(--font-martian), ui-monospace, monospace;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+
+  --animate-led: led 2s ease-in-out infinite;
+  --animate-row-in: row-in 240ms ease-out both;
+  --animate-trace: trace 1200ms ease-out both;
+
+  @keyframes led {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  @keyframes row-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes trace {
+    from { stroke-dashoffset: 1; }
+    to { stroke-dashoffset: 0; }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-ground);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-device) 35%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

