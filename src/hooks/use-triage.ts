@@ -122,7 +122,7 @@ const useTriage = () => {
     }
     let verdict = p1.verdict;
     if (verdict && hard.length) {
-      verdict = { ...verdict, verdict: "danger", reason: `Hard sign: ${hard[0]}. ${verdict.reason}` };
+      verdict = { ...verdict, verdict: "danger" };
     } else if (verdict && verdict.verdict !== "noise" && notes.trim()) {
       const route: Route = p1.source === "on_device" && health === "ok" ? "device" : "cloud";
       const p2 = await ask(secondLookText(a, notes, verdict.verdict), route).catch((e) => {

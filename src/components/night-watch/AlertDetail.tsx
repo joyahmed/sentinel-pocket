@@ -1,4 +1,5 @@
 import { clock, type TriageRow } from "@/lib/night";
+import { hardSigns } from "@/lib/triage";
 import { explainError } from "@/lib/status";
 import SourceBadge from "@/components/night-watch/SourceBadge";
 import VerdictChip from "@/components/night-watch/VerdictChip";
@@ -20,6 +21,8 @@ const TITLE: Record<Exclude<TriageRow["status"], "done">, string> = {
 const AlertDetail = ({ row, rows, online }: AlertDetailProps) => {
   if (!row) return null;
   const { alert, verdict, status } = row;
+  // The rule is its own small line; a rules-only verdict already says it as the sentence.
+  const rule = status === "done" && row.source !== "rule" && verdict?.verdict === "danger" ? hardSigns(alert)[0] : undefined;
   const raw = [
     `${clock(alert.time, true)} ${alert.summary}`,
     ...Object.entries(alert.context ?? {}).map(([k, v]) => `${k}: ${v}`),
@@ -34,6 +37,7 @@ const AlertDetail = ({ row, rows, online }: AlertDetailProps) => {
       <h2 className="mt-3 text-[22px] leading-tight font-bold lg:text-[26px]">
         {status === "done" && verdict ? verdict.reason : TITLE[status === "done" ? "error" : status]}
       </h2>
+      {rule && <p className="mt-2 font-mono text-[11px] text-muted">Rule: {rule}</p>}
       <pre className="mt-4 overflow-x-auto rounded-md border border-line bg-surface px-3 py-2.5 font-mono text-[11px] leading-[1.7] whitespace-pre-wrap break-words text-[#FFB1A8] lg:text-[12px]">
         {raw.join("\n")}
       </pre>
