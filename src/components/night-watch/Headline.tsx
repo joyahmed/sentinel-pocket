@@ -16,7 +16,11 @@ const Headline = ({ counts, running, notice }: HeadlineProps) => {
     counts.failed ? `${counts.failed} could not be sorted` : null,
   ].filter(Boolean);
   // Never say "go back to sleep" while alerts are still unread.
-  const rest = counts.failed ? ` ${counts.failed} not sorted - read them.` : " Go back to sleep.";
+  const rest = counts.failed
+    ? ` ${counts.failed} not sorted - read them.`
+    : need > 0
+      ? " Read those first."
+      : " Go back to sleep.";
 
   return (
     <div>
