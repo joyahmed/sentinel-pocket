@@ -7,6 +7,7 @@ import { useState } from "react";
 import type { InferenceSource } from "firebase/ai";
 import { investigateModel } from "@/lib/firebase";
 import { scrubBundle } from "@/lib/scrub";
+import { isRateLimit, quotaText } from "@/lib/hybrid";
 import { TriageTimeout, withTimeout } from "@/lib/triage";
 import type { TriageRow } from "@/lib/night";
 
@@ -43,7 +44,9 @@ const useInvestigate = (row: TriageRow, rows: TriageRow[]) => {
       const r = await withTimeout(() => investigateModel().generateContent(bundle.text));
       setAnswer({ text: r.response.text(), ms: Math.round(performance.now() - t0), source: r.response.inferenceSource });
     } catch (e) {
-      setError(e instanceof TriageTimeout ? "The AI did not answer in 20 seconds. Try again." : String(e));
+      setError(
+        e instanceof TriageTimeout ? "The AI did not answer in 20 seconds. Try again." : isRateLimit(e) ? quotaText(e) : String(e),
+      );
     }
     setSending(false);
   };

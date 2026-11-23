@@ -71,10 +71,10 @@ Shots:
 
 ## 2:45-3:00 How it is built
 
-> It runs on Firebase AI Logic: on-device first, the cloud only for deep looks, guarded by App Check. It is open source. The link is below.
+> It runs on Firebase AI Logic hybrid inference: on-device first, a small daily cloud budget when Chrome has no model, more cloud only when I ask, guarded by App Check. It is open source. The link is below.
 
 Shots:
-1. Show `src/lib/firebase.ts` in the editor for 3 seconds (`PREFER_ON_DEVICE`, `ONLY_IN_CLOUD`, `ReCaptchaEnterpriseProvider` in view), or the README "How Firebase AI Logic is used" section.
+1. Show `src/lib/firebase.ts` in the editor for 3 seconds (`PREFER_ON_DEVICE`, `ONLY_ON_DEVICE`, `ONLY_IN_CLOUD`, `ReCaptchaEnterpriseProvider` in view), or the README "How Firebase AI Logic is used" section.
 2. End on the GitHub repo page (https://github.com/joyahmed/sentinel-pocket) with the README visible.
 
 ## After recording

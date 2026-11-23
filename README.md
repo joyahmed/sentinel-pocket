@@ -24,10 +24,11 @@ cloud chat: they hold IPs, commands, user names and secret paths. So Sentinel Po
 judges every alert with Gemini Nano, the model built into Chrome, on my own machine.
 It is fast, free, and works offline.
 
-When I want a deeper look, I press "Investigate deeper". Only then does anything go
-to the cloud, and only a scrubbed copy (IPs, names and paths replaced) that I see
-before I send it. Every answer on screen says where it ran: on this device or in the
-cloud.
+When I want a deeper look, I press "Investigate deeper": a scrubbed copy (IPs, names
+and paths replaced) that I see before I send it goes to the cloud. On a browser with
+no Nano, the hybrid model may send at most 3 scrubbed alerts a day to the cloud by
+itself; past that, only when I click. Every answer on screen says where it ran: on
+this device or in the cloud.
 
 ## A quick look
 
@@ -53,7 +54,7 @@ Splitting the two jobs fixed both. The rules live in `src/lib/triage.ts`
 (`hardSigns`, `mergeVerdicts`); the home screen uses them through
 `src/hooks/use-triage.ts`, and so does the eval page.
 
-**When an AI does not answer**, the home screen degrades instead of stalling: one on-device probe before the first night, which waits up to 30 s because Nano can take that long to load after a Chrome restart (the status strip says it is warming up); if Nano is still silent, alerts go to Gemini in the cloud while Nano is asked again in the background every 20 s (3 tries), and the rest of the night moves back on-device as soon as it answers. Cloud calls run one at a time, with one retry on a 429; if the cloud is also out, a hard sign alone marks the alert danger ("flagged by rule") and anything else is shown as "not sorted" (`src/lib/hybrid.ts`). The eval page still measures Nano alone.
+**Hybrid triage with a cloud budget, and the rules are the floor.** Each alert goes to the hybrid model (`InferenceMode.PREFER_ON_DEVICE`): Gemini Nano when Chrome has it, the cloud model when it does not. The cloud part has a budget: at most **3 cloud answers per browser per day** (counted in localStorage under today's date). After 3, the rest of the night runs on an on-device-only model plus the rules. Cloud-bound triage text is scrubbed first (IPs, names, apps and secret paths replaced, the same scrubber as "Investigate deeper"). One on-device probe (`ONLY_ON_DEVICE`, so it never spends cloud quota) runs before the first night, and it waits up to 30 s because Nano can take that long to load after a Chrome restart (the status strip says it is warming up). If Nano says "available" but stays silent, the hybrid model is not asked at all (it would wait on the device too): the code rules take over. A hard sign alone marks the alert danger ("flagged by rule"), and anything else is shown as "not sorted". Nano is asked again in the background every 20 s (3 tries). If it answers, the alerts still not sorted are sorted on-device. More cloud only when I click. "Investigate deeper" is `ONLY_IN_CLOUD`, sent after I see the scrubbed preview. A button appears when there are unsorted alerts and on-device is not answering: "Ask the cloud to sort the N unsorted alerts". It sends at most 5 alerts per click, one at a time, and the button warns that it uses the shared free quota. If the cloud answers 429 with a long wait (the daily quota), all cloud use stops for the session at once, and the app says the quota is used up for today and when it resets (`src/lib/hybrid.ts`, `src/hooks/use-triage.ts`). The eval page still measures Nano alone.
 
 ## Results
 
@@ -84,8 +85,8 @@ Every round, the method and the misses: `docs/EVAL.md`.
 - **Pass 2 is weak on its own.** It said "noise" on all 64 alerts it saw. The hard signs are what stop real danger from being excused.
 - **The labelled set is small:** 266 alerts, only 21 of them danger, from one server.
 - **The held-out half is not fully independent.** Many alerts come in near-identical pairs, and I read the first miss list across both halves to find the failure kinds. Fresh alerts are the real test.
-- **Windows:** while I was building it, Gemini Nano in Chrome on Windows once hung for more than 4 minutes on one alert. Every model call now has a 20 s limit, and a timeout is counted as its own result, never dropped. The numbers above are from the Mac. On a Chrome whose Nano says "available" but never answers, the home screen waits 30 s once, then sorts in the cloud or by the rules with no per-alert waits (Break-in replay, headless with a silent Nano stub: 48 s, was 14 × 20 s).
-- **Cloud quota:** "Investigate deeper" uses the Gemini free tier, which returns a rate-limit error (429) under heavy use. The app says so in plain words.
+- **Windows:** while I was building it, Gemini Nano in Chrome on Windows once hung for more than 4 minutes on one alert. Every model call now has a 20 s limit, and a timeout is counted as its own result, never dropped. The numbers above are from the Mac. On a Chrome whose Nano says "available" but never answers, the home screen waits 30 s once, then sorts by the rules with no per-alert waits and no cloud calls (Break-in replay, headless with a silent Nano stub: 30 s, 12 flagged by rule, 2 not sorted, 0 cloud requests).
+- **Cloud quota:** the cloud side runs on the Firebase AI Logic free tier for `gemini-3.6-flash`. That is about **20 requests a day for the whole project**, shared by every visitor of the hosted site. An earlier version sent alerts to the cloud automatically when Nano hung, and one 18-alert night used up the day's quota. So the automatic part now has a budget: the hybrid model may get at most 3 cloud answers per browser per day, and any more cloud is on a click ("Investigate deeper", or "Ask the cloud to sort", at most 5 alerts per click). The budget is per browser, so many visitors on the hosted site can still use up the shared quota together. When the quota is gone, the app stops all cloud calls for the session and says "the cloud quota is used up for today" and when it resets. On-device sorting and the rules keep working.
 
 ## Run it
 
@@ -107,8 +108,9 @@ Hosting notes: `docs/HOSTING.md`. Demo video script: `docs/VIDEO.md`.
 
 All the Firebase code is in `src/lib/firebase.ts` and `src/lib/triage.ts`.
 
-- **Firebase AI Logic, on-device first:** `getGenerativeModel` with `InferenceMode.PREFER_ON_DEVICE`. Nano must return valid JSON (`promptOptions.responseConstraint` set to `VERDICT_SCHEMA`: verdict, reason, next_step). If Nano is not there, the same call falls back to the cloud model (`gemini-3.6-flash`) with the same answer shape.
-- **Firebase AI Logic, cloud only:** a second model with `InferenceMode.ONLY_IN_CLOUD` for "Investigate deeper", called only after I have seen the scrubbed preview.
+- **Firebase AI Logic, hybrid:** `getGenerativeModel` with `InferenceMode.PREFER_ON_DEVICE` for triage. On the device, Nano must return valid JSON (`promptOptions.responseConstraint` set to `VERDICT_SCHEMA`: verdict, reason, next_step); in the cloud, `gemini-3.6-flash` gets the same system prompt and `responseSchema`. `response.inferenceSource` says where each answer ran, which drives the badge and the cloud budget (3 per browser per day).
+- **Firebase AI Logic, on-device only:** the same triage with `InferenceMode.ONLY_ON_DEVICE`, for the warm-up probe and for the rest of a night once the cloud budget is spent. It never reaches the cloud.
+- **Firebase AI Logic, cloud only:** `InferenceMode.ONLY_IN_CLOUD`, in two models. The first is "Investigate deeper", called only after I have seen the scrubbed preview. The second is the same triage contract in the cloud, called only when I press "Ask the cloud to sort".
 - **Firebase App Check** with `ReCaptchaEnterpriseProvider`, so only this app can call the models.
 - **Gemini Nano** through Chrome's built-in AI.
 - **Next.js** and **Tailwind CSS** for the app.

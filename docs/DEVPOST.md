@@ -8,7 +8,7 @@ Fill in `VIDEO_URL` after the video is on YouTube (public).
 | Field | Value |
 |---|---|
 | Project name | Sentinel Pocket |
-| Tagline | The AI in your own Chrome sorts server security alerts into noise, check or danger. Your logs stay on your machine; the cloud only sees a scrubbed copy you approve. |
+| Tagline | The AI in your own Chrome sorts server security alerts into noise, check or danger. Your logs stay on your machine; the cloud only ever sees a scrubbed copy. |
 | Platform | Web (Chrome): Gemini Nano via Firebase AI Logic |
 | Try it out (live) | https://sentinel-pocket.web.app |
 | Code (public, Apache-2.0) | https://github.com/joyahmed/sentinel-pocket |
@@ -29,9 +29,13 @@ Tagline length: 164 characters (limit 200).
    (IPs, names, apps and paths swapped for tokens), then press "Send scrubbed bundle".
 6. Open `/eval` to run all 266 labelled alerts on your own machine (about 9 minutes).
 
-If Chrome has no Gemini Nano, the same triage call falls back to Gemini in the cloud, and the badge
-says so. "Investigate deeper" uses the free cloud tier, which can answer with a rate-limit error
-(429) under heavy use; the app says so in plain words. Wait a minute and try again.
+Triage is hybrid (`PREFER_ON_DEVICE`): Gemini Nano when Chrome has it, the cloud when it does not,
+with a cloud budget of 3 answers per browser per day (scrubbed text only). Past the budget, or if
+Nano says "available" but does not answer, the built-in rules are the floor: they flag the clear
+intruder signs ("flagged by rule"), and the rest are shown as "not sorted". More cloud only on a
+click: a button offers "Ask the cloud to sort the N unsorted alerts", at most 5 per click. The
+cloud side is the Firebase AI Logic free tier: about 20 requests a day, shared by every visitor.
+When it is used up, all cloud calls stop and the app says so and when it resets.
 
 ## Long description
 
@@ -77,14 +81,18 @@ and scored only in the final run.
 ### How I built it
 
 I built it as a Next.js and Tailwind CSS web app on Firebase Hosting. All the AI runs through
-**Firebase AI Logic**, with two models over one answer shape (`src/lib/firebase.ts`):
+**Firebase AI Logic**, with one triage contract and one deep-look model (`src/lib/firebase.ts`):
 
-1. **Triage, on-device first.** `getGenerativeModel` with `InferenceMode.PREFER_ON_DEVICE`. On the
-   device, Gemini Nano must answer valid JSON: `promptOptions.responseConstraint` is set to
-   `VERDICT_SCHEMA` (verdict, reason, next_step). If Nano is not there, the same call falls back to
-   Gemini in the cloud, with the same system prompt and the same answer shape (`responseSchema`).
-   So on-device and cloud answers can be compared fairly, and the app never has to care which one
-   answered. `response.inferenceSource` drives the "where it ran" badge.
+1. **Triage, hybrid.** `getGenerativeModel` with `InferenceMode.PREFER_ON_DEVICE`. On the device,
+   Gemini Nano must answer valid JSON: `promptOptions.responseConstraint` is set to `VERDICT_SCHEMA`
+   (verdict, reason, next_step). In the cloud, `gemini-3.6-flash` gets the same system prompt and
+   the same answer shape (`responseSchema`), so on-device and cloud answers can be compared fairly.
+   `response.inferenceSource` drives the "where it ran" badge and a cloud budget: at most 3 cloud
+   answers per browser per day, then the rest of the night runs on an `ONLY_ON_DEVICE` copy of the
+   model plus the code rules. The warm-up probe is `ONLY_ON_DEVICE` too, so it never spends quota.
+   A Nano that says "available" but hangs is not asked through the hybrid model; the rules are the
+   floor. Cloud-bound triage text is scrubbed first. More cloud only when I press "Ask the cloud
+   to sort" (an `ONLY_IN_CLOUD` copy, at most 5 alerts per click).
 2. **Investigate, cloud only.** A second model with `InferenceMode.ONLY_IN_CLOUD`. It is called only
    after I have seen the scrubbed preview (`src/lib/scrub.ts`, `src/hooks/use-investigate.ts`).
    The cloud gets the scrubbed text, never the raw alerts.
@@ -118,9 +126,13 @@ rules, so the score I report is the behaviour you see.
   I split the job: pass 1 judges without notes, code checks hard signs that nothing can excuse, and
   pass 2 may use the notes only to lower a verdict to noise. That took it to 19/21 with 0 false
   alarms.
-- **Free-tier cloud rate limits.** "Investigate deeper" runs on the Gemini free tier, which returns
-  429 under heavy use. The app now explains it in plain words ("wait a minute") instead of showing a
-  raw error.
+- **Free-tier cloud quota.** The cloud side is the Firebase AI Logic free tier: about 20 requests a
+  day for the whole project, shared by every visitor. An early version sent alerts to the cloud
+  automatically when Nano hung, and one 18-alert night used up the day's quota for everyone. Now
+  the hybrid model has a budget of 3 cloud answers per browser per day, and more cloud is only on
+  a click ("Investigate deeper", or "Ask the cloud to sort", at most 5 per click). A daily-quota
+  429 stops all cloud use for the session at once, with plain words: the quota is used up for
+  today, and when it resets.
 - **Scrubbing real alerts.** My test data had to be real to mean anything, but real alerts hold
   addresses, user names, app names and secret paths. I scrubbed every alert before it entered the
   public repo, then re-ran the full eval on a fresh clone of the public code: no alert changed
@@ -132,8 +144,9 @@ rules, so the score I report is the behaviour you see.
   On the half I held out: 98.5%, 8 of 10, 0 false alarms.
 - The honest bits are in the repo: every tuning round, the held-out split, and both misses, written
   up in `docs/EVAL.md`.
-- A real privacy line, not a promise: the default path never leaves the machine, and the cloud path
-  shows exactly what will be sent before it goes.
+- A real privacy line, not a promise: with Nano, the default path never leaves the machine; without
+  it, at most 3 scrubbed alerts a day go to the cloud; and "Investigate deeper" shows exactly what
+  will be sent before it goes.
 - It works offline, which is when a security tool matters most.
 
 ### What I learned
@@ -169,8 +182,8 @@ The four criteria are weighted equally, each scored 1 to 5.
 
 | Criterion | Evidence |
 |---|---|
-| **Technological Implementation**: how well it is built, and how well it uses Firebase AI Logic hybrid inference | `PREFER_ON_DEVICE` triage with `responseConstraint` and a matching cloud `responseSchema`: [src/lib/firebase.ts#L53-L69](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/firebase.ts#L53-L69). `ONLY_IN_CLOUD` investigate: [#L71-L85](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/firebase.ts#L71-L85). App Check with reCAPTCHA Enterprise: [#L41-L51](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/firebase.ts#L41-L51). Called at runtime with `inferenceSource`: [src/hooks/use-triage.ts#L32-L52](https://github.com/joyahmed/sentinel-pocket/blob/main/src/hooks/use-triage.ts#L32-L52). Hard signs and merge rule: [src/lib/triage.ts#L148-L221](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/triage.ts#L148-L221). 20 s limit: [#L59-L103](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/triage.ts#L59-L103). |
-| **Design**: a complete, coherent product, not a proof of concept | One flow from load to verdict to deep look: headline, sorted list (danger first), detail panel, "where it ran" badge ([src/components/night-watch/SourceBadge.tsx](https://github.com/joyahmed/sentinel-pocket/blob/main/src/components/night-watch/SourceBadge.tsx)), online and on-device status strip, offline notice, plain-words errors including the 429 case ([src/lib/status.ts#L41-L45](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/status.ts#L41-L45)), the scrubbed preview before sending ([src/components/night-watch/InvestigatePanel.tsx](https://github.com/joyahmed/sentinel-pocket/blob/main/src/components/night-watch/InvestigatePanel.tsx)). Three design directions explored first: [docs/design/DESIGN.md](https://github.com/joyahmed/sentinel-pocket/blob/main/docs/design/DESIGN.md). Hosted: https://sentinel-pocket.web.app |
+| **Technological Implementation**: how well it is built, and how well it uses Firebase AI Logic hybrid inference | `PREFER_ON_DEVICE` hybrid triage, `responseConstraint` on the device and a matching `responseSchema` in the cloud: [src/lib/firebase.ts#L69-L81](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/firebase.ts#L69-L81). `ONLY_ON_DEVICE` copy for the warm-up probe and for the night once the cloud budget is spent: [#L83-L89](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/firebase.ts#L83-L89). `ONLY_IN_CLOUD` copy, only on a click: [#L91-L97](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/firebase.ts#L91-L97). `ONLY_IN_CLOUD` investigate: [#L99-L113](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/firebase.ts#L99-L113). App Check with reCAPTCHA Enterprise: [#L57-L67](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/firebase.ts#L57-L67). Called at runtime with `inferenceSource`, a cloud budget of 3 per browser per day, scrubbed cloud text, rules as the floor: [src/hooks/use-triage.ts#L162-L207](https://github.com/joyahmed/sentinel-pocket/blob/main/src/hooks/use-triage.ts#L162-L207) (budget counter: [src/lib/hybrid.ts](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/hybrid.ts)); more cloud only on a click: [#L283-L318](https://github.com/joyahmed/sentinel-pocket/blob/main/src/hooks/use-triage.ts#L283-L318). Hard signs and merge rule: [src/lib/triage.ts#L148-L221](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/triage.ts#L148-L221). 20 s limit: [#L59-L103](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/triage.ts#L59-L103). |
+| **Design**: a complete, coherent product, not a proof of concept | One flow from load to verdict to deep look: headline, sorted list (danger first), detail panel, "where it ran" badge ([src/components/night-watch/SourceBadge.tsx](https://github.com/joyahmed/sentinel-pocket/blob/main/src/components/night-watch/SourceBadge.tsx)), online and on-device status strip, offline notice, plain-words errors including the 429 case ([src/lib/status.ts#L74-L94](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/status.ts#L74-L94)), the scrubbed preview before sending ([src/components/night-watch/InvestigatePanel.tsx](https://github.com/joyahmed/sentinel-pocket/blob/main/src/components/night-watch/InvestigatePanel.tsx)). Three design directions explored first: [docs/design/DESIGN.md](https://github.com/joyahmed/sentinel-pocket/blob/main/docs/design/DESIGN.md). Hosted: https://sentinel-pocket.web.app |
 | **Potential Impact**: a credible, specific case for a real problem and a real audience | The problem is mine: over fifteen hundred alerts in ten days on one small server, and logs I will not paste into a cloud chat. The audience: people who run their own servers without a security team. Measured on 266 labelled alerts from that server: 99.2% exact, 19/21 dangers, 0 false alarms; held out: 98.5%, 8/10, 0 ([README.md Results](https://github.com/joyahmed/sentinel-pocket#results), [docs/EVAL.md](https://github.com/joyahmed/sentinel-pocket/blob/main/docs/EVAL.md)). Limits stated openly ([README.md Limits](https://github.com/joyahmed/sentinel-pocket#limits)). |
 | **Quality of the Idea**: a creative, non-obvious use of Firebase AI Logic, and real understanding of the problem | Hybrid inference used as a privacy line: private data is judged on the device, and only a scrubbed copy the owner has seen goes to the cloud ([src/lib/scrub.ts](https://github.com/joyahmed/sentinel-pocket/blob/main/src/lib/scrub.ts), [src/hooks/use-investigate.ts](https://github.com/joyahmed/sentinel-pocket/blob/main/src/hooks/use-investigate.ts)). Offline triage when the network may be under attack. The two-pass design came from measured failures: notes excused attacks, no notes meant 45 false alarms ([docs/EVAL.md, Round 3](https://github.com/joyahmed/sentinel-pocket/blob/main/docs/EVAL.md#round-3-two-passes-notes-may-only-lower-a-verdict)). |
 

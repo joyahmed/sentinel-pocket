@@ -18,6 +18,9 @@ const useNightWatch = () => {
   const selected = list.find((r) => r.alert.id === selectedId) ?? list[0] ?? null;
   const counts = countNight(triage.rows);
   const trace = traceOf(triage.rows);
+  const unsorted = triage.rows.filter((r) => r.status === "unsorted").length;
+  // Offer more cloud (on a click) only when this device is not answering.
+  const offerCloud = !triage.running && online && triage.deviceHealth !== "ok";
 
   const select = (id: string) => {
     setSelectedId(id);
@@ -32,7 +35,7 @@ const useNightWatch = () => {
     return triage.load(alerts);
   };
 
-  return { ...triage, load, online, onDevice, list, selected, counts, trace, select };
+  return { ...triage, load, online, onDevice, list, selected, counts, trace, select, unsorted, offerCloud };
 };
 
 export default useNightWatch;

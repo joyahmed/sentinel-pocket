@@ -1,10 +1,11 @@
+import type { ReactNode } from "react";
 import type { NightCounts } from "@/lib/night";
 import type { Notice } from "@/lib/status";
 import { TEXT } from "@/components/night-watch/tones";
 
-type HeadlineProps = { counts: NightCounts; running: boolean; notice: Notice };
+type HeadlineProps = { counts: NightCounts; running: boolean; notice: Notice; children?: ReactNode };
 
-const Headline = ({ counts, running, notice }: HeadlineProps) => {
+const Headline = ({ counts, running, notice, children }: HeadlineProps) => {
   const need = counts.danger + counts.check;
   const needTone = counts.danger ? "text-danger" : counts.check ? "text-check" : "text-ink";
   const facts = [
@@ -50,6 +51,7 @@ const Headline = ({ counts, running, notice }: HeadlineProps) => {
             : facts.join(" · ")}
       </p>
       {notice && <p className={`mt-3 max-w-[70ch] font-mono text-[12px] leading-relaxed ${TEXT[notice.tone]}`}>{notice.text}</p>}
+      {children}
     </div>
   );
 };

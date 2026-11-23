@@ -4,6 +4,7 @@ import useNightWatch from "@/hooks/use-night-watch";
 import { statusOf } from "@/lib/status";
 import StatusStrip from "@/components/night-watch/StatusStrip";
 import Headline from "@/components/night-watch/Headline";
+import CloudSort from "@/components/night-watch/CloudSort";
 import Heartbeat from "@/components/night-watch/Heartbeat";
 import NightPicker from "@/components/night-watch/NightPicker";
 import AlertList from "@/components/night-watch/AlertList";
@@ -18,7 +19,9 @@ const HomeClient = () => {
       <StatusStrip pills={pills} current="/" />
       <main className="flex-1">
         <section className="px-4 pt-7 pb-6 lg:px-8 lg:pt-9">
-          <Headline counts={nw.counts} running={nw.running} notice={notice} />
+          <Headline counts={nw.counts} running={nw.running} notice={notice}>
+            <CloudSort unsorted={nw.unsorted} offer={nw.offerCloud} note={nw.cloudNote} onSort={nw.sortInCloud} />
+          </Headline>
           <Heartbeat trace={nw.trace} count={nw.rows.length} animate={!nw.running && nw.counts.sorted > 0} onPick={nw.select} />
           <NightPicker running={nw.running} notes={nw.notes} setNotes={nw.setNotes} onLoad={nw.load} onStop={nw.stop} />
         </section>

@@ -50,30 +50,48 @@ export const statusOf = (online: boolean, onDevice: OnDeviceState, fixture: bool
   else if (health === "retrying")
     notice = {
       tone: "check",
-      text: "Chrome's on-device AI has not answered yet - using the cloud and the built-in rules, and checking it again in the background.",
+      text: "Chrome's on-device AI has not answered yet - the built-in rules flag the clear intruder signs, the rest wait unsorted, and it is checked again in the background.",
     };
   else if (deviceStuck)
     notice = {
       tone: "check",
-      text: "Chrome's on-device AI is not answering on this machine - using the cloud and the built-in rules.",
+      text: "Chrome's on-device AI is not answering on this machine - only the built-in rules flagged alerts. Nothing was sent to the cloud.",
     };
   else if (onDevice === "downloadable" || onDevice === "downloading")
-    notice = { tone: "check", text: "Chrome's on-device model is not ready yet. Until it is, alerts are sorted by Gemini in the cloud." };
+    notice = {
+      tone: "check",
+      text: "Chrome's on-device model is not ready yet. Until it is, the hybrid model asks the cloud for up to 3 alerts a day from this browser, and the built-in rules flag the rest. More cloud only if you ask.",
+    };
   else if (onDevice === "missing" || onDevice === "unavailable")
     notice = {
       tone: "check",
-      text: "This browser has no on-device AI. Alerts are sorted by Gemini in the cloud instead, through the same Firebase call. Each answer is labelled with where it ran.",
+      text: "This browser has no on-device AI, so the hybrid model asks the cloud for up to 3 alerts a day from this browser, and the built-in rules flag the rest. More cloud only if you ask. Each answer is labelled with where it ran.",
     };
 
   return { pills, notice };
 };
 
 // A failed verdict, in plain words first; the raw error stays underneath.
+const EXPLAIN: [RegExp, (error: string) => string][] = [
+  [
+    /automatic cloud budget used/,
+    () => "The automatic cloud budget for today (3 alerts per browser) is used, and no on-device AI answered. Ask the cloud with the button at the top.",
+  ],
+  [
+    /no cloud call was made/,
+    () => "Chrome's on-device AI did not answer, and nothing is sent to the cloud unless you ask (button at the top).",
+  ],
+  [
+    /used up for today/,
+    (e) => {
+      const reset = /resets in ([^)]*)/.exec(e)?.[1];
+      return `The free cloud quota is used up for today${reset ? ` - it resets in ${reset}` : ""}.`;
+    },
+  ],
+  [/\b429\b|Too Many Requests|quota/i, () => "The cloud AI hit its free-tier rate limit. Wait a minute and try again."],
+  [/no answer in \d+ ms/, () => "The AI did not answer in time. Load the night again to retry."],
+  [/offline|Failed to fetch|NetworkError/i, () => "No network, and no on-device AI answered."],
+];
+
 export const explainError = (error: string) =>
-  /\b429\b|Too Many Requests|quota/i.test(error)
-    ? "The cloud AI hit its free-tier rate limit. Wait a minute, then load the night again."
-    : /no answer in \d+ ms/.test(error)
-      ? "The AI did not answer in time. Load the night again to retry."
-      : /offline|Failed to fetch|NetworkError/i.test(error)
-        ? "No network, and no on-device AI answered."
-        : "The AI call failed. Load the night again to retry.";
+  (EXPLAIN.find(([re]) => re.test(error))?.[1] ?? (() => "The AI call failed. Load the night again to retry."))(error);

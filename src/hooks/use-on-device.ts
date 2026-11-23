@@ -1,8 +1,8 @@
 "use client";
 
-// Is Chrome's on-device model (Gemini Nano, Prompt API) usable here? The triage
-// model prefers it and falls back to the cloud by itself; this hook only lets the
-// UI say plainly which of the two the owner should expect.
+// Is Chrome's on-device model (Gemini Nano, Prompt API) usable here? The hybrid
+// triage model prefers it, and reaches the cloud only within a small daily budget;
+// this hook lets the UI say plainly which the owner should expect.
 import { useEffect, useState } from "react";
 import { EN_TEXT } from "@/lib/triage";
 
