@@ -111,13 +111,23 @@ export async function withTimeout<T>(
 
 // A cloud call the owner asked for ("Investigate deeper" -> Send) gets longer:
 // the first cloud answer of a while has been measured at ~27 s (HTTP 200 after
-// the old 20 s limit had already given up), likely a cold start. The on-device
-// budget (TRIAGE_TIMEOUT_MS) is unchanged.
-export const CLOUD_TIMEOUT_MS = 60_000;
+// the old 20 s limit had already given up), likely a cold start, and later at
+// 53.5 s, too close to a 60 s limit. The on-device budget (TRIAGE_TIMEOUT_MS) is
+// unchanged.
+export const CLOUD_TIMEOUT_MS = 90_000;
 // Past this, the page says the wait is normal instead of looking frozen.
 export const CLOUD_SLOW_HINT_MS = 10_000;
-export const CLOUD_SLOW_TEXT = "Still thinking — the first cloud answer can take up to a minute.";
-export const CLOUD_TIMEOUT_TEXT = "The cloud AI did not answer in 60 seconds. Try again in a minute.";
+export const CLOUD_SLOW_TEXT = "Still thinking — the first cloud answer can take over a minute.";
+export const CLOUD_TIMEOUT_TEXT = "The cloud AI did not answer in 90 seconds. Try again in a minute.";
+
+// The preview's send line: before, during and after a Send.
+export const sendStateText = (sending: boolean, sentAt: Date | null): string => {
+  if (sending) return "Sent to the cloud AI. Waiting for its answer…";
+  if (!sentAt) return "Nothing has been sent yet.";
+  const hh = String(sentAt.getHours()).padStart(2, "0");
+  const mm = String(sentAt.getMinutes()).padStart(2, "0");
+  return `Sent at ${hh}:${mm}.`;
+};
 
 // withTimeout with the cloud budget, plus `onSlow` called once if no answer
 // came within CLOUD_SLOW_HINT_MS. Never called when the answer is quick.

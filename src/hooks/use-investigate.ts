@@ -30,6 +30,7 @@ const useInvestigate = (row: TriageRow, rows: TriageRow[]) => {
   const [open, setOpen] = useState(false);
   const [sending, setSending] = useState(false);
   const [slow, setSlow] = useState(false);
+  const [sentAt, setSentAt] = useState<Date | null>(null);
   const [answer, setAnswer] = useState<Answer | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,6 +42,7 @@ const useInvestigate = (row: TriageRow, rows: TriageRow[]) => {
     setSending(true);
     setError(null);
     setSlow(false);
+    setSentAt(new Date());
     const t0 = performance.now();
     try {
       const r = await withCloudWait(() => investigateModel().generateContent(bundle.text), () => setSlow(true));
@@ -54,7 +56,7 @@ const useInvestigate = (row: TriageRow, rows: TriageRow[]) => {
     setSending(false);
   };
 
-  return { open, toggle: () => setOpen((o) => !o), alertCount: alerts.length, bundle, send, sending, slow, answer, error };
+  return { open, toggle: () => setOpen((o) => !o), alertCount: alerts.length, bundle, send, sending, sentAt, slow, answer, error };
 };
 
 export default useInvestigate;

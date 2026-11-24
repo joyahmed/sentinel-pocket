@@ -1,14 +1,16 @@
 import type { TriageRow } from "@/lib/night";
 import useInvestigate from "@/hooks/use-investigate";
 import SourceBadge from "@/components/night-watch/SourceBadge";
-import { CLOUD_SLOW_TEXT } from "@/lib/triage";
+import { CLOUD_SLOW_TEXT, sendStateText } from "@/lib/triage";
+import { renderMarkdown } from "@/lib/markdown";
 
 type InvestigatePanelProps = { row: TriageRow; rows: TriageRow[]; online: boolean };
 
 const BTN = "inline-block rounded-md border px-4 py-2.5 font-mono text-[13px] font-semibold transition-colors";
 
 // The "what will be sent" preview: the bundle as a diff (red = original, stays
-// here; blue = scrubbed, would leave). Nothing is sent until the owner clicks.
+// here; blue = scrubbed, would leave). Nothing is sent until the owner clicks;
+// the line under the title says whether it has been.
 const InvestigatePanel = ({ row, rows, online }: InvestigatePanelProps) => {
   const inv = useInvestigate(row, rows);
   const hot = row.verdict?.verdict === "danger";
@@ -29,7 +31,7 @@ const InvestigatePanel = ({ row, rows, online }: InvestigatePanelProps) => {
           <h3 className="font-mono text-[22px] font-light tracking-[-0.03em] lg:text-[30px]">leaving this machine</h3>
           <p className="mt-2 text-[14px] text-muted">
             {inv.alertCount === 1 ? "This alert" : `This alert and ${inv.alertCount - 1} nearby alert${inv.alertCount === 2 ? "" : "s"} that were not noise`}.
-            Names, IP addresses and secret paths are replaced before anything leaves. <b className="text-ink">Nothing has been sent yet.</b>
+            Names, IP addresses and secret paths are replaced before anything leaves. <b aria-live="polite" className="text-ink">{sendStateText(inv.sending, inv.sentAt)}</b>
           </p>
           <pre className="mt-4 max-h-[320px] overflow-auto rounded-md border border-line bg-surface px-3.5 py-3 font-mono text-[11px] leading-[1.9] lg:text-[12px]">
             {inv.bundle.lines.map((l, i) =>
@@ -70,7 +72,7 @@ const InvestigatePanel = ({ row, rows, online }: InvestigatePanelProps) => {
           {inv.answer && (
             <div className="mt-5 rounded-md border border-line bg-surface p-4">
               <SourceBadge source={inv.answer.source ?? "in_cloud"} ms={inv.answer.ms} model="Gemini" />
-              <p className="mt-3 text-[14px] leading-relaxed whitespace-pre-wrap">{inv.answer.text}</p>
+              <div className="mt-3 text-[14px] leading-relaxed break-words">{renderMarkdown(inv.answer.text)}</div>
             </div>
           )}
         </section>
