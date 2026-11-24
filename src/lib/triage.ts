@@ -120,9 +120,22 @@ export const CLOUD_SLOW_HINT_MS = 10_000;
 export const CLOUD_SLOW_TEXT = "Still thinking — the first cloud answer can take over a minute.";
 export const CLOUD_TIMEOUT_TEXT = "The cloud AI did not answer in 90 seconds. Try again in a minute.";
 
-// The preview's send line: before, during and after a Send.
-export const sendStateText = (sending: boolean, sentAt: Date | null): string => {
+export const CLOUD_FAILED_TEXT = "Not answered — nothing was saved. Try again in a minute.";
+export const CLOUD_BUSY_TEXT = "Google's AI is busy right now. Try again in a minute.";
+export const CLOUD_GENERIC_ERROR_TEXT = "The cloud AI could not answer. Try again in a minute.";
+
+// Google's "high demand" errors (HTTP 500/503). The raw text stays in the console.
+export const isCloudBusy = (e: unknown): boolean =>
+  /\b(500|503)\b|high demand|overloaded|UNAVAILABLE/i.test(String(e));
+
+// Plain words for a failed cloud send (timeout and 429 are handled by the caller).
+export const cloudErrorText = (e: unknown): string => (isCloudBusy(e) ? CLOUD_BUSY_TEXT : CLOUD_GENERIC_ERROR_TEXT);
+
+// The preview's send line: before, during and after a Send. "Sent at" only
+// after a real answer; a failed send says so.
+export const sendStateText = (sending: boolean, sentAt: Date | null, failed = false): string => {
   if (sending) return "Sent to the cloud AI. Waiting for its answer…";
+  if (failed) return CLOUD_FAILED_TEXT;
   if (!sentAt) return "Nothing has been sent yet.";
   const hh = String(sentAt.getHours()).padStart(2, "0");
   const mm = String(sentAt.getMinutes()).padStart(2, "0");

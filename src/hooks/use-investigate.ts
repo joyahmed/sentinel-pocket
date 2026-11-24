@@ -8,7 +8,7 @@ import type { InferenceSource } from "firebase/ai";
 import { investigateModel } from "@/lib/firebase";
 import { scrubBundle } from "@/lib/scrub";
 import { isRateLimit, quotaText } from "@/lib/hybrid";
-import { CLOUD_TIMEOUT_TEXT, TriageTimeout, withCloudWait } from "@/lib/triage";
+import { CLOUD_TIMEOUT_TEXT, TriageTimeout, cloudErrorText, withCloudWait } from "@/lib/triage";
 import type { TriageRow } from "@/lib/night";
 
 const WINDOW_MS = 60 * 60 * 1000;
@@ -48,9 +48,8 @@ const useInvestigate = (row: TriageRow, rows: TriageRow[]) => {
       const r = await withCloudWait(() => investigateModel().generateContent(bundle.text), () => setSlow(true));
       setAnswer({ text: r.response.text(), ms: Math.round(performance.now() - t0), source: r.response.inferenceSource });
     } catch (e) {
-      setError(
-        e instanceof TriageTimeout ? CLOUD_TIMEOUT_TEXT : isRateLimit(e) ? quotaText(e) : String(e),
-      );
+      console.error("investigate: cloud send failed", e); // technical detail stays here
+      setError(e instanceof TriageTimeout ? CLOUD_TIMEOUT_TEXT : isRateLimit(e) ? quotaText(e) : cloudErrorText(e));
     }
     setSlow(false);
     setSending(false);

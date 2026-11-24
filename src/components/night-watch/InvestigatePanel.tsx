@@ -31,7 +31,7 @@ const InvestigatePanel = ({ row, rows, online }: InvestigatePanelProps) => {
           <h3 className="font-mono text-[22px] font-light tracking-[-0.03em] lg:text-[30px]">leaving this machine</h3>
           <p className="mt-2 text-[14px] text-muted">
             {inv.alertCount === 1 ? "This alert" : `This alert and ${inv.alertCount - 1} nearby alert${inv.alertCount === 2 ? "" : "s"} that were not noise`}.
-            Names, IP addresses and secret paths are replaced before anything leaves. <b aria-live="polite" className="text-ink">{sendStateText(inv.sending, inv.sentAt)}</b>
+            Names, IP addresses and secret paths are replaced before anything leaves. <b aria-live="polite" className="text-ink">{sendStateText(inv.sending, inv.sentAt, inv.error !== null)}</b>
           </p>
           <pre className="mt-4 max-h-[320px] overflow-auto rounded-md border border-line bg-surface px-3.5 py-3 font-mono text-[11px] leading-[1.9] lg:text-[12px]">
             {inv.bundle.lines.map((l, i) =>
