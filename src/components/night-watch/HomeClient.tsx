@@ -25,7 +25,7 @@ const HomeClient = () => {
           <Heartbeat trace={nw.trace} count={nw.rows.length} animate={!nw.running && nw.counts.sorted > 0} onPick={nw.select} />
           <NightPicker running={nw.running} notes={nw.notes} setNotes={nw.setNotes} onLoad={nw.load} onStop={nw.stop} />
         </section>
-        <div className="grid border-t border-line lg:grid-cols-[1.2fr_1fr]">
+        <div className="grid border-t border-line lg:grid-cols-[1.2fr_1fr] [&>*]:min-w-0">
           <AlertList rows={nw.list} selectedId={nw.selected?.alert.id} withDate={nw.trace.spansDays} onSelect={nw.select} />
           <AlertDetail row={nw.selected} rows={nw.rows} online={nw.online} />
         </div>

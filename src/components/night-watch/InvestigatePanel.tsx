@@ -72,7 +72,7 @@ const InvestigatePanel = ({ row, rows, online }: InvestigatePanelProps) => {
           {inv.answer && (
             <div className="mt-5 rounded-md border border-line bg-surface p-4">
               <SourceBadge source={inv.answer.source ?? "in_cloud"} ms={inv.answer.ms} model="Gemini" />
-              <div className="mt-3 text-[14px] leading-relaxed break-words">{renderMarkdown(inv.answer.text)}</div>
+              <div className="mt-3 text-[14px] leading-relaxed break-words [overflow-wrap:anywhere]">{renderMarkdown(inv.answer.text)}</div>
             </div>
           )}
         </section>
