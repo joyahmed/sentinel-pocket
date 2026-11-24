@@ -1,6 +1,7 @@
 import type { TriageRow } from "@/lib/night";
 import useInvestigate from "@/hooks/use-investigate";
 import SourceBadge from "@/components/night-watch/SourceBadge";
+import { CLOUD_SLOW_TEXT } from "@/lib/triage";
 
 type InvestigatePanelProps = { row: TriageRow; rows: TriageRow[]; online: boolean };
 
@@ -59,6 +60,11 @@ const InvestigatePanel = ({ row, rows, online }: InvestigatePanelProps) => {
               {inv.sending ? "Sending…" : inv.answer ? "Send again" : "Send scrubbed bundle"}
             </button>
             {!online && <span className="text-[13px] text-danger">Offline: the deep look needs the cloud.</span>}
+            {inv.sending && inv.slow && (
+              <span role="status" className="text-[13px] text-muted">
+                {CLOUD_SLOW_TEXT}
+              </span>
+            )}
           </div>
           {inv.error && <p className="mt-4 font-mono text-[12px] break-words text-danger">{inv.error}</p>}
           {inv.answer && (

@@ -109,6 +109,31 @@ export async function withTimeout<T>(
   }
 }
 
+// A cloud call the owner asked for ("Investigate deeper" -> Send) gets longer:
+// the first cloud answer of a while has been measured at ~27 s (HTTP 200 after
+// the old 20 s limit had already given up), likely a cold start. The on-device
+// budget (TRIAGE_TIMEOUT_MS) is unchanged.
+export const CLOUD_TIMEOUT_MS = 60_000;
+// Past this, the page says the wait is normal instead of looking frozen.
+export const CLOUD_SLOW_HINT_MS = 10_000;
+export const CLOUD_SLOW_TEXT = "Still thinking — the first cloud answer can take up to a minute.";
+export const CLOUD_TIMEOUT_TEXT = "The cloud AI did not answer in 60 seconds. Try again in a minute.";
+
+// withTimeout with the cloud budget, plus `onSlow` called once if no answer
+// came within CLOUD_SLOW_HINT_MS. Never called when the answer is quick.
+export async function withCloudWait<T>(
+  run: (signal: AbortSignal) => Promise<T>,
+  onSlow: () => void,
+  outer?: AbortSignal,
+): Promise<T> {
+  const hint = setTimeout(onSlow, CLOUD_SLOW_HINT_MS);
+  try {
+    return await withTimeout(run, CLOUD_TIMEOUT_MS, outer);
+  } finally {
+    clearTimeout(hint);
+  }
+}
+
 export function alertText(a: Alert, houseNotes: string): string {
   const ctx = a.context
     ? Object.entries(a.context)

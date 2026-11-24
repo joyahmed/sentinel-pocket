@@ -8,7 +8,7 @@ import type { InferenceSource } from "firebase/ai";
 import { investigateModel } from "@/lib/firebase";
 import { scrubBundle } from "@/lib/scrub";
 import { isRateLimit, quotaText } from "@/lib/hybrid";
-import { TriageTimeout, withTimeout } from "@/lib/triage";
+import { CLOUD_TIMEOUT_TEXT, TriageTimeout, withCloudWait } from "@/lib/triage";
 import type { TriageRow } from "@/lib/night";
 
 const WINDOW_MS = 60 * 60 * 1000;
@@ -29,6 +29,7 @@ const relatedTo = (row: TriageRow, rows: TriageRow[]) => {
 const useInvestigate = (row: TriageRow, rows: TriageRow[]) => {
   const [open, setOpen] = useState(false);
   const [sending, setSending] = useState(false);
+  const [slow, setSlow] = useState(false);
   const [answer, setAnswer] = useState<Answer | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,19 +40,21 @@ const useInvestigate = (row: TriageRow, rows: TriageRow[]) => {
     if (!bundle || sending) return;
     setSending(true);
     setError(null);
+    setSlow(false);
     const t0 = performance.now();
     try {
-      const r = await withTimeout(() => investigateModel().generateContent(bundle.text));
+      const r = await withCloudWait(() => investigateModel().generateContent(bundle.text), () => setSlow(true));
       setAnswer({ text: r.response.text(), ms: Math.round(performance.now() - t0), source: r.response.inferenceSource });
     } catch (e) {
       setError(
-        e instanceof TriageTimeout ? "The AI did not answer in 20 seconds. Try again." : isRateLimit(e) ? quotaText(e) : String(e),
+        e instanceof TriageTimeout ? CLOUD_TIMEOUT_TEXT : isRateLimit(e) ? quotaText(e) : String(e),
       );
     }
+    setSlow(false);
     setSending(false);
   };
 
-  return { open, toggle: () => setOpen((o) => !o), alertCount: alerts.length, bundle, send, sending, answer, error };
+  return { open, toggle: () => setOpen((o) => !o), alertCount: alerts.length, bundle, send, sending, slow, answer, error };
 };
 
 export default useInvestigate;
