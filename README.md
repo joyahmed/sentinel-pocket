@@ -8,7 +8,7 @@
 ![Runs on-device](https://img.shields.io/badge/runs-on--device-7CC4FF.svg)
 ![Firebase AI Logic](https://img.shields.io/badge/Firebase-AI%20Logic-FFCA28.svg)
 
-My entry for #BuildHybridAI 2026.
+My entry for #BuildHybridAI 2026. **[▶ Watch the 3-minute demo](https://youtu.be/bxhhcbc0pzo)** · [Try it live](https://sentinel-pocket.web.app)
 
 </div>
 

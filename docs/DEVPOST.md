@@ -12,7 +12,7 @@ Fill in `VIDEO_URL` after the video is on YouTube (public).
 | Platform | Web (Chrome): Gemini Nano via Firebase AI Logic |
 | Try it out (live) | https://sentinel-pocket.web.app |
 | Code (public, Apache-2.0) | https://github.com/joyahmed/sentinel-pocket |
-| Video (YouTube, public, 3:00 max) | `VIDEO_URL` |
+| Video (YouTube, public, 3:00 max) | https://youtu.be/bxhhcbc0pzo |
 | New or existing app | New project, built for this hackathon. |
 
 Tagline length: 164 characters (limit 200).
@@ -195,5 +195,5 @@ The four criteria are weighted equally, each scored 1 to 5.
 - [x] Public repo with an open source licence (Apache-2.0, `LICENSE`)
 - [x] Live URL: https://sentinel-pocket.web.app
 - [x] Text description: how Firebase AI Logic is used, features, value (above)
-- [ ] Video on YouTube, public, English, 3:00 or less: `VIDEO_URL` (script: `docs/VIDEO.md`)
-- [ ] Licence shows in the GitHub "About" section
+- [x] Video on YouTube, public, English, 3:00 or less: https://youtu.be/bxhhcbc0pzo (script: `docs/VIDEO.md`)
+- [x] Licence shows in the GitHub "About" section
